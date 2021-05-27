@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.UserResitory;
 
-namespace WorkManagementSystemTAB.UsersData
+namespace WorkManagementSystemTAB.Services.Users
 {
     public class UsersService : IUsersService
     {

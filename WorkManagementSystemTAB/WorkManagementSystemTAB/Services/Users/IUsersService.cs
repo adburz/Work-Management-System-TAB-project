@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
 
-namespace WorkManagementSystemTAB.UsersData
+namespace WorkManagementSystemTAB.Services.Users
 {
     public interface IUsersService
     {

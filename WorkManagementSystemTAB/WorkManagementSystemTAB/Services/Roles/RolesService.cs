@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Roles;
 
-namespace WorkManagementSystemTAB.Repository.Roles
+namespace WorkManagementSystemTAB.Services.Roles
 {
-    public class RolesRepository : IRolesRepository
+    public class RolesService : IRolesService
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public RolesRepository(TABWorkManagementSystemContext context) => _context = context;
-
+        private readonly IRolesRepository _rolesRepository;
+        public RolesService(IRolesRepository rolesRepository) {
+            _rolesRepository = rolesRepository;
+        }
         public Role Add(Role entity) {
             throw new NotImplementedException();
         }
@@ -22,10 +24,6 @@ namespace WorkManagementSystemTAB.Repository.Roles
         }
 
         public Role GetById(Guid id) {
-            throw new NotImplementedException();
-        }
-
-        public void Save() {
             throw new NotImplementedException();
         }
     }

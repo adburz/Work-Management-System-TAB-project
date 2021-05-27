@@ -1,8 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
-using WorkManagementSystemTAB.UsersData;
+using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB.Controllers
 {
@@ -22,8 +21,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(users);
         }
 
-        [Route("api/[controller]/{id}")]
-        [HttpPost]
+        [HttpPost("api/[controller]/{id}")]
         public IActionResult GetUser(Guid id) {
             var users = _usersService.GetUser(id);
             if (users != null) {

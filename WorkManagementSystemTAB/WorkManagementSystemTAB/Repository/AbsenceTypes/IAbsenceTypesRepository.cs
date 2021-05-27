@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.AbsenceTypes
 {
-    public class IAbsenceTypesRepository
+    public interface IAbsenceTypesRepository : IRepository<AbsenceType, Guid>
     {
     }
 }

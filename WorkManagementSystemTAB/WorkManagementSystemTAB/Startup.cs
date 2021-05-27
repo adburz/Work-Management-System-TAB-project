@@ -7,7 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.UserResitory;
-using WorkManagementSystemTAB.UsersData;
+using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB
 {

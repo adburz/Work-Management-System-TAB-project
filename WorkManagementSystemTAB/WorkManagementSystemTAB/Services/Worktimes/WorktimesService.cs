@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Worktimes;
 
-namespace WorkManagementSystemTAB.Repository.Worktimes
+namespace WorkManagementSystemTAB.Services.Worktimes
 {
-    public class WorktimesRepository : IWorktimesRepository
+    public class WorktimesService : IWorktimesService
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public WorktimesRepository(TABWorkManagementSystemContext context) => _context = context;
+        private readonly IWorktimesRepository _worktimesRepository;
+        public WorktimesService(IWorktimesRepository worktimesRepository) {
+            _worktimesRepository = worktimesRepository;
+        }
         public Worktime Add(Worktime entity) {
             throw new NotImplementedException();
         }
@@ -21,10 +26,6 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
         }
 
         public Worktime GetById(Guid id) {
-            throw new NotImplementedException();
-        }
-
-        public void Save() {
             throw new NotImplementedException();
         }
     }

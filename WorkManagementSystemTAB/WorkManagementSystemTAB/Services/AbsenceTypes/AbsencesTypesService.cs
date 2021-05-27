@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.AbsenceTypes;
 
-namespace WorkManagementSystemTAB.Repository.AbsenceTypes
+namespace WorkManagementSystemTAB.Services.AbsenceTypes
 {
-    public class AbsenceTypesRepository : IAbsenceTypesRepository
+    public class AbsencesTypesService : IAbsenceTypesService
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public AbsenceTypesRepository(TABWorkManagementSystemContext context) => _context = context;
+        private readonly IAbsenceTypesRepository _absencesRepository;
+        public AbsencesTypesService(IAbsenceTypesRepository absencesRepository) {
+            _absencesRepository = absencesRepository;
+        }
 
         public AbsenceType Add(AbsenceType entity) {
             throw new NotImplementedException();
@@ -24,10 +25,6 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
         }
 
         public AbsenceType GetById(Guid id) {
-            throw new NotImplementedException();
-        }
-
-        public void Save() {
             throw new NotImplementedException();
         }
     }

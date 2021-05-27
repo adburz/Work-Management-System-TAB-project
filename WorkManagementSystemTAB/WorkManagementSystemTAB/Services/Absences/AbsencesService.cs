@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Absences;
 
-namespace WorkManagementSystemTAB.Repository.Absences
+namespace WorkManagementSystemTAB.Services.Absences
 {
-    public class AbsencesRepository : IAbsencesRepository
+    public class AbsencesService : IAbsencesService
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public AbsencesRepository(TABWorkManagementSystemContext context) => _context = context;
-
+        private readonly IAbsencesRepository _absencesRepository;
+        public AbsencesService(IAbsencesRepository absencesRepository) {
+            _absencesRepository = absencesRepository;
+        }
         public Absence Add(Absence entity) {
             throw new NotImplementedException();
         }
@@ -24,10 +24,6 @@ namespace WorkManagementSystemTAB.Repository.Absences
         }
 
         public Absence GetById(Guid id) {
-            throw new NotImplementedException();
-        }
-
-        public void Save() {
             throw new NotImplementedException();
         }
     }
