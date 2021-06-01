@@ -9,23 +9,33 @@ namespace WorkManagementSystemTAB.Repository.Roles
         private readonly TABWorkManagementSystemContext _context;
         public RolesRepository(TABWorkManagementSystemContext context) => _context = context;
 
-        public Role Add(Role entity) {
+        public Role Add(Role entity)
+        {
             throw new NotImplementedException();
         }
 
-        public void Delete(Guid id) {
+        public Role AddAsync(Role entity)
+        {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Role> GetAll() {
+        public void Delete(Guid id)
+        {
             throw new NotImplementedException();
         }
 
-        public Role GetById(Guid id) {
+        public IEnumerable<Role> GetAll()
+        {
             throw new NotImplementedException();
         }
 
-        public void Save() {
+        public Role GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
             throw new NotImplementedException();
         }
     }

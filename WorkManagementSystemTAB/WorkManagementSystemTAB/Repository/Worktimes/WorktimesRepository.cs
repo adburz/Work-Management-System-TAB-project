@@ -8,23 +8,33 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
     {
         private readonly TABWorkManagementSystemContext _context;
         public WorktimesRepository(TABWorkManagementSystemContext context) => _context = context;
-        public Worktime Add(Worktime entity) {
+        public Worktime Add(Worktime entity)
+        {
             throw new NotImplementedException();
         }
 
-        public void Delete(Guid id) {
+        public Worktime AddAsync(Worktime entity)
+        {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Worktime> GetAll() {
+        public void Delete(Guid id)
+        {
             throw new NotImplementedException();
         }
 
-        public Worktime GetById(Guid id) {
+        public IEnumerable<Worktime> GetAll()
+        {
             throw new NotImplementedException();
         }
 
-        public void Save() {
+        public Worktime GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
             throw new NotImplementedException();
         }
     }

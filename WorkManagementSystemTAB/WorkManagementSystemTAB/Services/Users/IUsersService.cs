@@ -7,10 +7,11 @@ namespace WorkManagementSystemTAB.Services.Users
 {
     public interface IUsersService
     {
-        IEnumerable<User> GetUsers();
-        User GetUser(Guid id);
-        User AddUser(User user);
-        void DeleteUser();
+        public IEnumerable<User> GetUsers();
+        public User GetUser(Guid id);
+        public User Create(User user, string password);
+        public Task<User> FindUserByEmailAsync(string email);
+        public void DeleteUser();
 
     }
 }

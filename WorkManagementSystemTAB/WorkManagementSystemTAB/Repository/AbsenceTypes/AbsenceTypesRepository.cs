@@ -11,23 +11,33 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
         private readonly TABWorkManagementSystemContext _context;
         public AbsenceTypesRepository(TABWorkManagementSystemContext context) => _context = context;
 
-        public AbsenceType Add(AbsenceType entity) {
+        public AbsenceType Add(AbsenceType entity)
+        {
             throw new NotImplementedException();
         }
 
-        public void Delete(Guid id) {
+        public AbsenceType AddAsync(AbsenceType entity)
+        {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<AbsenceType> GetAll() {
+        public void Delete(Guid id)
+        {
             throw new NotImplementedException();
         }
 
-        public AbsenceType GetById(Guid id) {
+        public IEnumerable<AbsenceType> GetAll()
+        {
             throw new NotImplementedException();
         }
 
-        public void Save() {
+        public AbsenceType GetById(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Save()
+        {
             throw new NotImplementedException();
         }
     }
