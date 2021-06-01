@@ -1,14 +1,16 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 
 
 namespace WorkManagementSystemTAB.Models
 {
-    public partial class TABWorkManagementSystemContext : DbContext
+    public partial class TABWorkManagementSystemContext : IdentityDbContext
     {
         public TABWorkManagementSystemContext(DbContextOptions<TABWorkManagementSystemContext> options)
-            : base(options) {
+            : base(options)
+        {
         }
 
         public virtual DbSet<Absence> Absences { get; set; }

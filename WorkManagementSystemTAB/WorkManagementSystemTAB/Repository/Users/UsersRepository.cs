@@ -12,27 +12,44 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
         private readonly TABWorkManagementSystemContext _context;
         public UsersRepository(TABWorkManagementSystemContext context) => _context = context;
 
-        public void Delete(Guid id) {
+        public void Delete(Guid id)
+        {
             var userToDelete = _context.Users.FirstOrDefault(u => u.UserId == id);
-            if (userToDelete != null) { _context.Remove(userToDelete); }
+            if (userToDelete != null)
+            { _context.Remove(userToDelete); }
         }
 
-        public IEnumerable<User> GetAll() {
+        public IEnumerable<User> GetAll()
+        {
             return _context.Users.ToList();
         }
 
-        public User GetById(Guid id) {
+        public User GetById(Guid id)
+        {
             return _context.Users.Find(id);
         }
 
-        public User Add(User entity) {
+        public User Add(User entity)
+        {
             _context.Users.Add(entity);
             this.Save();
             return entity;
         }
 
-        public void Save() {
+        public void Save()
+        {
             _context.SaveChanges();
         }
+
+        public async Task<User> FindUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Login == email);
+        }
+
+        public User AddAsync(User entity)
+        {
+            throw new NotImplementedException();
+        }
     }
+
 }
