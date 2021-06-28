@@ -19,8 +19,9 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var users = _usersService.GetUsers();
-            return Ok(users);
+            //var users = _usersService.GetUsers();
+            //return Ok(users);
+            return Ok("dupa");
         }
 
         [HttpPost("api/[controller]/{id}")]

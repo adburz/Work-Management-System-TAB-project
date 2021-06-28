@@ -35,6 +35,14 @@ namespace WorkManagementSystemTAB
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkManagementSystemTAB", Version = "v1" });
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(
+                    builder =>
+                    {
+                        builder.WithOrigins("https://localhost:4200");
+                    });
+            });
 
             //DbContext
             services.AddDbContext<TABWorkManagementSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MainDbConnection")));
@@ -86,6 +94,8 @@ namespace WorkManagementSystemTAB
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthentication();
             app.UseAuthorization();
