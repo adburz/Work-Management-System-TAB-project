@@ -52,7 +52,7 @@ namespace WorkManagementSystemTAB.Controllers
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(JwtRegisteredClaimNames.Email, newUser.Login),
                     new Claim(JwtRegisteredClaimNames.Sub, newUser.Password),
-                    new Claim(ClaimTypes.Role, newUser.Role.Title),
+                    //new Claim(ClaimTypes.Role, newUser.Role.Title),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
@@ -66,11 +66,11 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Register([FromBody] UserRegistrationDTO user)
+        public IActionResult Register([FromBody] UserRegistrationDTO user)
         {
             if (ModelState.IsValid)
             {
-                var existingUser = await _usersService.FindUserByEmailAsync(user.Email);
+                var existingUser = _usersService.FindUserByEmail(user.Email);
                 if (existingUser != null)
                 {
                     return BadRequest(new RegistrationResponse()
@@ -79,7 +79,7 @@ namespace WorkManagementSystemTAB.Controllers
                         Success = false
                     });
                 }
-                var newUser = new User() { Login = user.Email, Password = user.Password, Role = _rolesRepository.GetRoleByName(user.RoleName) };
+                var newUser = new User() { Login = user.Email, Password = user.Password, RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
 
                 //var isCreated = 
                 _usersService.Create(newUser, user.Password);
@@ -90,22 +90,6 @@ namespace WorkManagementSystemTAB.Controllers
                     Success = true,
                     Token = jwtToken
                 });
-
-
-                //if (isCreated )
-                //{
-                //} else
-                //{
-                //    return BadRequest(new RegistrationResponse()
-                //    {
-                //        Errors = new List<string>()
-                //        {
-                //            "Unable to create user",
-                //            isCreated.Errors.Select(x=>x.Description).ToString()
-                //        },
-                //        Success = false
-                //    });
-                //}
             }
 
 

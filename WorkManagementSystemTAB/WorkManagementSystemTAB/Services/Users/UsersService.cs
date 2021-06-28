@@ -27,9 +27,9 @@ namespace WorkManagementSystemTAB.Services.Users
             throw new NotImplementedException();
         }
 
-        public Task<User> FindUserByEmailAsync(string email)
+        public User FindUserByEmail(string email)
         {
-            return _userRepository.FindUserByEmailAsync(email);
+            return _userRepository.FindUserByEmail(email);
         }
 
         public User GetUser(Guid id)

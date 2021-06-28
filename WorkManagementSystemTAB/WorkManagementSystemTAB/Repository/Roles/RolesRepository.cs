@@ -37,7 +37,12 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public Role GetRoleByName(string name)
         {
-           return _context.Roles.FirstOrDefault(x => x.Title == name);
+           return _context.Roles.FirstOrDefault(x => x.Name == name);
+        }
+
+        public Guid GetRoleIdByName(string name)
+        {
+            return GetRoleByName(name).RoleId;
         }
 
         public void Save()

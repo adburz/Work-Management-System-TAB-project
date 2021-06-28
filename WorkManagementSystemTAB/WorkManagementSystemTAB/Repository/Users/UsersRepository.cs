@@ -41,9 +41,9 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             _context.SaveChanges();
         }
 
-        public async Task<User> FindUserByEmailAsync(string email)
+        public User FindUserByEmail(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(x => x.Login == email);
+            return  _context.Users.FirstOrDefault(x => x.Login == email);
         }
 
         public User AddAsync(User entity)
