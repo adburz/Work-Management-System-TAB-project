@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WorkManagementSystemTAB.Models
 {
-    public partial class TABWorkManagementSystemContext : IdentityDbContext
+    public partial class TABWorkManagementSystemContext : DbContext
     {
         public TABWorkManagementSystemContext(DbContextOptions<TABWorkManagementSystemContext> options)
             : base(options)

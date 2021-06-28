@@ -6,7 +6,7 @@ using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/")]
     [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
@@ -25,7 +25,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(users);
         }
 
-        [HttpPost("api/[controller]/{id}")]
+        [HttpPost("{id}")]
         public IActionResult GetUser(Guid id)
         {
             var users = _usersService.GetUser(id);
@@ -37,7 +37,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         //TODO UserDTO should be used over there.
-        [HttpPost("api/[controller]")]
+        [HttpPost]
         [AllowAnonymous]
         public IActionResult AddUser(User user)
         {

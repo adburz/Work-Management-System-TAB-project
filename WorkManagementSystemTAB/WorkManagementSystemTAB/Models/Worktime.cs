@@ -10,6 +10,6 @@ namespace WorkManagementSystemTAB.Models
         public Guid WorktimeId { get; set; }
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public User User { get; set; }
+        public Guid UserId { get; set; }
     }
 }

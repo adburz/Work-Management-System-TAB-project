@@ -13,6 +13,7 @@ using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Repository.UserResitory;
+using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB
@@ -98,6 +99,8 @@ namespace WorkManagementSystemTAB
 
             //Services
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IRolesService, RolesService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

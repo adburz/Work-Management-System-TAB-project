@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Migrations
 {
     [DbContext(typeof(TABWorkManagementSystemContext))]
-    partial class TABWorkManagementSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210628182847_NiceOne")]
+    partial class NiceOne
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

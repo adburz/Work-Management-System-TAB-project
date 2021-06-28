@@ -27,7 +27,7 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public IEnumerable<Role> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Roles.ToList();
         }
 
         public Role GetById(Guid id)

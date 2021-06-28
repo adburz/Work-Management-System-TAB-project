@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Migrations
 {
     [DbContext(typeof(TABWorkManagementSystemContext))]
-    partial class TABWorkManagementSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20210628181830_ostateczna2")]
+    partial class ostateczna2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -25,7 +27,7 @@ namespace WorkManagementSystemTAB.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AbsenceTypeId")
+                    b.Property<Guid?>("AbsenceTypeId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Confirmed")
@@ -37,10 +39,14 @@ namespace WorkManagementSystemTAB.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("AbsenceId");
+
+                    b.HasIndex("AbsenceTypeId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Absences");
                 });
@@ -120,12 +126,38 @@ namespace WorkManagementSystemTAB.Migrations
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("UserId")
+                    b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("WorktimeId");
 
+                    b.HasIndex("UserId");
+
                     b.ToTable("Worktimes");
+                });
+
+            modelBuilder.Entity("WorkManagementSystemTAB.Models.Absence", b =>
+                {
+                    b.HasOne("WorkManagementSystemTAB.Models.AbsenceType", "AbsenceType")
+                        .WithMany()
+                        .HasForeignKey("AbsenceTypeId");
+
+                    b.HasOne("WorkManagementSystemTAB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("AbsenceType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("WorkManagementSystemTAB.Models.Worktime", b =>
+                {
+                    b.HasOne("WorkManagementSystemTAB.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

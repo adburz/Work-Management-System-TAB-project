@@ -20,7 +20,7 @@ namespace WorkManagementSystemTAB.Services.Roles
         }
 
         public IEnumerable<Role> GetAll() {
-            throw new NotImplementedException();
+            return _rolesRepository.GetAll();
         }
 
         public Role GetById(Guid id) {
