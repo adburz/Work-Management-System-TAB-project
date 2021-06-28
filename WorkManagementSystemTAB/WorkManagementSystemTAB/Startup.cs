@@ -11,8 +11,10 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Authorization;
 using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Repository.UserResitory;
+using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
 
@@ -96,10 +98,12 @@ namespace WorkManagementSystemTAB
             //Repository
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
+            services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
 
             //Services
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
+            services.AddScoped<IAuthService, AuthService>();
 
         }
 

@@ -14,6 +14,7 @@ using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Roles;
+using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB.Controllers
@@ -24,15 +25,19 @@ namespace WorkManagementSystemTAB.Controllers
     {
         private readonly IUsersService _usersService;
         private readonly IRolesRepository _rolesRepository;
+        private readonly IAuthService _authService;
+
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
-            IUsersService usersService, IRolesRepository rolesRepository)
+            IUsersService usersService, IRolesRepository rolesRepository, IAuthService authService)
         {
             _usersService = usersService;
 
             _rolesRepository = rolesRepository;
 
             _jwtConfig = optionsMonitor.CurrentValue;
+
+            _authService = authService;
         }
 
         private string GenerateJwtToken(User newUser)
@@ -52,7 +57,6 @@ namespace WorkManagementSystemTAB.Controllers
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(JwtRegisteredClaimNames.Email, newUser.Login),
                     new Claim(JwtRegisteredClaimNames.Sub, newUser.Password),
-                    //new Claim(ClaimTypes.Role, newUser.Role.Title),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
@@ -79,9 +83,8 @@ namespace WorkManagementSystemTAB.Controllers
                         Success = false
                     });
                 }
-                var newUser = new User() { Login = user.Email, Password = user.Password, RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
+                var newUser = new User() { Login = user.Email, Password = EncriptPassword(user.Password), RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
 
-                //var isCreated = 
                 _usersService.Create(newUser, user.Password);
 
                 var jwtToken = GenerateJwtToken(newUser);
@@ -104,10 +107,28 @@ namespace WorkManagementSystemTAB.Controllers
 
         }
 
-        [HttpPost("api/[controller]/log")]
+        [HttpPost("login")]
         public IActionResult Authorize(UserAuthorizationDTO user)
         {
-            return null;
+            user.Password = EncriptPassword(user.Password);
+
+            var foundUser = _authService.FindUser(user);
+
+            if (foundUser == null)
+                return NotFound();
+
+
+            if(foundUser.Password == user.Password)
+                return Ok(GenerateJwtToken(foundUser));
+
+            return NotFound();
+
+        }
+
+        private string EncriptPassword(string password)
+        {
+
+            return password;
         }
     }
 

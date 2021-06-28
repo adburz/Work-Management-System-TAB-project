@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Authorization
 {
-    public class AuthorizationRepository
+    public class AuthorizationRepository : IAuthorizationRepository
     {
         private readonly TABWorkManagementSystemContext _context;
         public AuthorizationRepository(TABWorkManagementSystemContext context) => _context = context;
 
-        public async Task<User> FindUserByEmailAsync(User user)
+        public User FindUserByEmail(string email)
         {
-            var foundedUser = _context.Users.FindAsync(user.Login);
-            return await foundedUser;
+            var foundUser = _context.Users.FirstOrDefault(x=> x.Login == email);
+            return foundUser;
         }
     }
 }

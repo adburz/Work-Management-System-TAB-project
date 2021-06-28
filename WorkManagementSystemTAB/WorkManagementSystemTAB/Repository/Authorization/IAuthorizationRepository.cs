@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Authorization
 {
-    public interface IAuthorizationRepository : IRepository<User, Guid>
+    public interface IAuthorizationRepository 
     {
-        public Task<User> FindUserByEmailAsync(User user);
+        public User FindUserByEmail(string email);
     }
 }

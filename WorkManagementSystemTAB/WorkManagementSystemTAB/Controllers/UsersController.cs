@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Services.Users;
@@ -19,8 +20,10 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetUsers()
         {
+            
             var users = _usersService.GetUsers();
             return Ok(users);
         }
