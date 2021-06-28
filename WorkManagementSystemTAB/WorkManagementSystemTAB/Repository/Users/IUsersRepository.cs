@@ -8,5 +8,6 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
 {
     public interface IUsersRepository : IRepository<User, Guid>
     {
+        public Task<User> FindUserByEmailAsync(string email);
     }
 }
