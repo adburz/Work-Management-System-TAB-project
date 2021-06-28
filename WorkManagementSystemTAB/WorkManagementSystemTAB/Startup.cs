@@ -11,6 +11,7 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.Services.Users;
 
@@ -33,6 +34,30 @@ namespace WorkManagementSystemTAB
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WorkManagementSystemTAB", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Scheme = "bearer",
+                    Description = "Please insert JWT token into field"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                  {
+                      new OpenApiSecurityScheme
+                       {
+                      Reference = new OpenApiReference
+            {
+                Type = ReferenceType.SecurityScheme,
+                Id = "Bearer"
+            }
+        },
+        new string[] { }
+    }
+});
             });
 
 
@@ -40,6 +65,7 @@ namespace WorkManagementSystemTAB
             services.AddDbContext<TABWorkManagementSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MainDbConnection")));
             //JWT
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
+
 
             services.AddAuthentication(options =>
             {
@@ -68,6 +94,7 @@ namespace WorkManagementSystemTAB
 
             //Repository
             services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<IRolesRepository, RolesRepository>();
 
             //Services
             services.AddScoped<IUsersService, UsersService>();

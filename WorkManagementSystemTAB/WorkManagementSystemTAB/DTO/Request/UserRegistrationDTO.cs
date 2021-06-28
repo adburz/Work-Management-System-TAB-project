@@ -14,6 +14,6 @@ namespace WorkManagementSystemTAB.DTO.Request
         public string Password { get; set; }
 
         [Required]
-        public Role Role { get; set; }
+        public string RoleName { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using WorkManagementSystemTAB.Models;
+using System.Linq;
 
 namespace WorkManagementSystemTAB.Repository.Roles
 {
@@ -32,6 +33,11 @@ namespace WorkManagementSystemTAB.Repository.Roles
         public Role GetById(Guid id)
         {
             throw new NotImplementedException();
+        }
+
+        public Role GetRoleByName(string name)
+        {
+           return _context.Roles.FirstOrDefault(x => x.Title == name);
         }
 
         public void Save()

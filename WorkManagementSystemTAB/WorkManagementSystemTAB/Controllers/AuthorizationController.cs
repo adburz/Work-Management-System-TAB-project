@@ -13,20 +13,24 @@ using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
         private readonly IUsersService _usersService;
+        private readonly IRolesRepository _rolesRepository;
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
-            IUsersService usersService)
+            IUsersService usersService, IRolesRepository rolesRepository)
         {
             _usersService = usersService;
+
+            _rolesRepository = rolesRepository;
 
             _jwtConfig = optionsMonitor.CurrentValue;
         }
@@ -61,7 +65,7 @@ namespace WorkManagementSystemTAB.Controllers
             return jwtToken;
         }
 
-        [HttpPost("api/[controller]/register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserRegistrationDTO user)
         {
             if (ModelState.IsValid)
@@ -75,8 +79,7 @@ namespace WorkManagementSystemTAB.Controllers
                         Success = false
                     });
                 }
-
-                var newUser = new User() { Login = user.Email, Password = user.Password, Role = user.Role };
+                var newUser = new User() { Login = user.Email, Password = user.Password, Role = _rolesRepository.GetRoleByName(user.RoleName) };
 
                 //var isCreated = 
                 _usersService.Create(newUser, user.Password);
