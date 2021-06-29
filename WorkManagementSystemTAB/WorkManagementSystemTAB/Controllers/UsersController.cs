@@ -2,9 +2,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
+using System.Security.Claims;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Services.Users;
-
+using System.Linq;
 namespace WorkManagementSystemTAB.Controllers
 {
     [Route("api/[controller]/")]
@@ -23,6 +24,12 @@ namespace WorkManagementSystemTAB.Controllers
         [AllowAnonymous]
         public IActionResult GetUsers()
         {
+            var xd = this.User.FindFirstValue(Strings.AccessLevel);
+            
+            if (xd == AccessLevelEnum.Worker.ToString())
+                return NotFound();
+
+
             
             var users = _usersService.GetUsers();
             return Ok(users);
@@ -44,7 +51,7 @@ namespace WorkManagementSystemTAB.Controllers
         [AllowAnonymous]
         public IActionResult AddUser(User user)
         {
-            var result = _usersService.Create(user, user.Password);
+            var result = _usersService.Create(user);
             return Ok(result);
         }
     }

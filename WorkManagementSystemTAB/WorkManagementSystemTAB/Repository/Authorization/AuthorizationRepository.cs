@@ -14,7 +14,7 @@ namespace WorkManagementSystemTAB.Repository.Authorization
 
         public User FindUserByEmail(string email)
         {
-            var foundUser = _context.Users.FirstOrDefault(x=> x.Login == email);
+            var foundUser = _context.Users.FirstOrDefault(x=> x.Email == email);
             return foundUser;
         }
     }

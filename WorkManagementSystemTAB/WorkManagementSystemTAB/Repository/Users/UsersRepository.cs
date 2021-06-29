@@ -43,7 +43,7 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
 
         public User FindUserByEmail(string email)
         {
-            return  _context.Users.FirstOrDefault(x => x.Login == email);
+            return  _context.Users.FirstOrDefault(x => x.Email == email);
         }
 
         public User AddAsync(User entity)

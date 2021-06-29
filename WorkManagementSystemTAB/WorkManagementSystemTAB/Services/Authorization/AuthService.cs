@@ -21,7 +21,7 @@ namespace WorkManagementSystemTAB.Services.Authorization
       
         User IAuthService.FindUser(UserAuthorizationDTO user)
         {
-            return _userRepository.FindUserByEmail(user.Login);
+            return _userRepository.FindUserByEmail(user.Email);
         }
     }
 }

@@ -9,7 +9,7 @@ namespace WorkManagementSystemTAB.Services.Users
     {
         public IEnumerable<User> GetUsers();
         public User GetUser(Guid id);
-        public User Create(User user, string password);
+        public User Create(User user);
         public User FindUserByEmail(string email);
         public void DeleteUser();
 

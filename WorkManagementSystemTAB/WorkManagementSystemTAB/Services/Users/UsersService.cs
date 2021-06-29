@@ -16,9 +16,8 @@ namespace WorkManagementSystemTAB.Services.Users
 
 
         #region Methods
-        public User Create(User user, string password)
+        public User Create(User user)
         {
-            user.Password = password;
             return _userRepository.Add(user);
         }
 

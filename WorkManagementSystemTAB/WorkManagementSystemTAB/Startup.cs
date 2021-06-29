@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,8 @@ namespace WorkManagementSystemTAB
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -60,6 +63,7 @@ namespace WorkManagementSystemTAB
         },
         new string[] { }
     }
+
 });
             });
 

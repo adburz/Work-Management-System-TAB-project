@@ -1,5 +1,6 @@
 ﻿
 
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
@@ -7,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using WorkManagementSystemTAB.Configuration;
@@ -15,6 +17,7 @@ using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Services.Authorization;
+using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
 
 namespace WorkManagementSystemTAB.Controllers
@@ -23,10 +26,12 @@ namespace WorkManagementSystemTAB.Controllers
     [ApiController]
     public class AuthorizationController : ControllerBase
     {
+        
         private readonly IUsersService _usersService;
         private readonly IRolesRepository _rolesRepository;
-        private readonly IAuthService _authService;
 
+        private readonly IAuthService _authService;
+        
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
             IUsersService usersService, IRolesRepository rolesRepository, IAuthService authService)
@@ -40,24 +45,19 @@ namespace WorkManagementSystemTAB.Controllers
             _authService = authService;
         }
 
-        private string GenerateJwtToken(User newUser)
+        private string GenerateJwtToken(User user)
         {
 
             var jwtTokenHandler = new JwtSecurityTokenHandler();
 
             var key = Encoding.ASCII.GetBytes(_jwtConfig.Secret);
 
-            //!TODO
-            //Add var claims = new List<Claim>();
-            //foreach(role in user.Role.Accessibility) {claims.Add(new Claim(ClaimType.Role, role.title)}...
-            //czy cos
-
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                    new Claim(JwtRegisteredClaimNames.Email, newUser.Login),
-                    new Claim(JwtRegisteredClaimNames.Sub, newUser.Password),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                    new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                    new Claim(Strings.AccessLevel, _rolesRepository.GetAccessLvlById(user.RoleId))
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -83,9 +83,9 @@ namespace WorkManagementSystemTAB.Controllers
                         Success = false
                     });
                 }
-                var newUser = new User() { Login = user.Email, Password = EncriptPassword(user.Password), RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
+                var newUser = new User() { Email = user.Email, Password = EncriptPassword(user.Password), RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
 
-                _usersService.Create(newUser, user.Password);
+                _usersService.Create(newUser);
 
                 var jwtToken = GenerateJwtToken(newUser);
                 return Ok(new RegistrationResponse()
@@ -110,6 +110,7 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpPost("login")]
         public IActionResult Authorize(UserAuthorizationDTO user)
         {
+
             user.Password = EncriptPassword(user.Password);
 
             var foundUser = _authService.FindUser(user);
@@ -118,16 +119,15 @@ namespace WorkManagementSystemTAB.Controllers
                 return NotFound();
 
 
-            if(foundUser.Password == user.Password)
+            if (foundUser.Password == user.Password)
                 return Ok(GenerateJwtToken(foundUser));
 
             return NotFound();
-
         }
 
+        //TODO
         private string EncriptPassword(string password)
         {
-
             return password;
         }
     }
