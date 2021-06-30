@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Worktimes
@@ -10,7 +11,9 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
         public WorktimesRepository(TABWorkManagementSystemContext context) => _context = context;
         public Worktime Add(Worktime entity)
         {
-            throw new NotImplementedException();
+            _context.Worktimes.Add(entity);
+            this.Save();
+            return entity;
         }
 
         public Worktime AddAsync(Worktime entity)
@@ -20,22 +23,24 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var worktimeToDelete = _context.Worktimes.FirstOrDefault(u => u.UserId == id);
+            if (worktimeToDelete != null)
+            { _context.Remove(worktimeToDelete); }
         }
 
         public IEnumerable<Worktime> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Worktimes.ToList();
         }
 
         public Worktime GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Worktimes.Find(id);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
         }
     }
 }

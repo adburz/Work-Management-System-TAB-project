@@ -14,11 +14,11 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             _worktimesRepository = worktimesRepository;
         }
         public Worktime Add(Worktime entity) {
-            throw new NotImplementedException();
+            return _worktimesRepository.Add(entity);
         }
 
         public void Delete(Guid id) {
-            throw new NotImplementedException();
+            _worktimesRepository.Delete(id);
         }
 
         public IEnumerable<Worktime> GetAll() {
@@ -26,7 +26,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
         }
 
         public Worktime GetById(Guid id) {
-            throw new NotImplementedException();
+            return _worktimesRepository.GetById(id);
         }
     }
 }

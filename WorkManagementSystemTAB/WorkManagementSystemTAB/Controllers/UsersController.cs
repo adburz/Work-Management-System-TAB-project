@@ -8,7 +8,7 @@ using WorkManagementSystemTAB.Services.Users;
 using System.Linq;
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]/")]
+    [Route("[controller]")]
     [Authorize]
     [ApiController]
     public class UsersController : ControllerBase
@@ -21,7 +21,6 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpGet]
-        [AllowAnonymous]
         public IActionResult GetUsers()
         {
             var xd = this.User.FindFirstValue(Strings.AccessLevel);
@@ -35,7 +34,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(users);
         }
 
-        [HttpPost("{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetUser(Guid id)
         {
             var users = _usersService.GetUser(id);
@@ -48,7 +47,6 @@ namespace WorkManagementSystemTAB.Controllers
 
         //TODO UserDTO should be used over there.
         [HttpPost]
-        [AllowAnonymous]
         public IActionResult AddUser(User user)
         {
             var result = _usersService.Create(user);

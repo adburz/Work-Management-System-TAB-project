@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.UserResitory;
+using WorkManagementSystemTAB.DTO.Response;
 
 namespace WorkManagementSystemTAB.Services.Users
 {
@@ -21,24 +23,52 @@ namespace WorkManagementSystemTAB.Services.Users
             return _userRepository.Add(user);
         }
 
-        public void DeleteUser()
+        public void DeleteUser(Guid id)
         {
-            throw new NotImplementedException();
+            _userRepository.Delete(id);
         }
 
-        public User FindUserByEmail(string email)
+        public UserDTO FindUserByEmail(string email)
         {
-            return _userRepository.FindUserByEmail(email);
+            var user = _userRepository.FindUserByEmail(email);
+            return new UserDTO()
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                RoleId = user.RoleId,
+                UserId = user.UserId,
+                VacationDaysCount = user.VacationDaysCount
+            };
         }
 
-        public User GetUser(Guid id)
+        public UserDTO GetUser(Guid id)
         {
-            throw new NotImplementedException();
+            var user = _userRepository.GetById(id);
+            return new UserDTO()
+            {
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                RoleId = user.RoleId,
+                UserId = user.UserId,
+                VacationDaysCount = user.VacationDaysCount
+            };
         }
 
-        public IEnumerable<User> GetUsers()
+        public IEnumerable<UserDTO> GetUsers()
         {
-            return _userRepository.GetAll();
+            var usersList= _userRepository.GetAll();
+            return usersList.Select(x => new UserDTO()
+            {
+                Email = x.Email,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                RoleId = x.RoleId,
+                UserId = x.UserId,
+                VacationDaysCount = x.VacationDaysCount
+            }
+            ).ToList();
         }
         #endregion
     }

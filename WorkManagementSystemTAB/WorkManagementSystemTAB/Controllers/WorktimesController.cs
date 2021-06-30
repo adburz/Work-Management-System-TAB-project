@@ -1,9 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Services.Worktimes;
 
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
+    [Authorize]
     [ApiController]
     public class WorktimesController : ControllerBase
     {
@@ -16,6 +19,11 @@ namespace WorkManagementSystemTAB.Controllers
         public IActionResult GetAll() {
             var worktimes = _worktimesService.GetAll();
             return Ok(worktimes);
+        }
+        [HttpPost("add")]
+        public IActionResult Add([FromBody]WorktimeDTO worktimeDTO)
+        {
+            return Ok();
         }
     }
 }
