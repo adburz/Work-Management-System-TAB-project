@@ -23,6 +23,11 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
+            var xd = this.User.FindFirstValue(Strings.AccessLevel);
+
+            if (xd == AccessLevelEnum.Worker.ToString())
+                return BadRequest();
+
             var users = _usersService.GetUsers();
             return Ok(users);
         }
