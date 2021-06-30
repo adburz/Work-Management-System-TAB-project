@@ -85,7 +85,7 @@ namespace WorkManagementSystemTAB.Controllers
                 }
                 var newUser = new User() { Email = user.Email, Password = EncriptPassword(user.Password), RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
 
-                _usersService.Create(newUser);
+                _usersService.AddUser(newUser);
 
                 var jwtToken = GenerateJwtToken(newUser);
                 return Ok(new RegistrationResponse()

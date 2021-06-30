@@ -23,13 +23,6 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var xd = this.User.FindFirstValue(Strings.AccessLevel);
-            
-            if (xd == AccessLevelEnum.Worker.ToString())
-                return NotFound();
-
-
-            
             var users = _usersService.GetUsers();
             return Ok(users);
         }
@@ -49,7 +42,7 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpPost]
         public IActionResult AddUser(User user)
         {
-            var result = _usersService.Create(user);
+            var result = _usersService.AddUser(user);
             return Ok(result);
         }
     }
