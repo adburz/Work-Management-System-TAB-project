@@ -14,6 +14,8 @@ namespace WorkManagementSystemTAB.Services.Users
         public User AddUser(AddUserDTO user);
         public UserDTO FindUserByEmail(string email);
         public void DeleteUser(Guid id);
+        public User Modify(User user);
+        public User Modify(Guid id, int daysToCut);
 
     }
 }

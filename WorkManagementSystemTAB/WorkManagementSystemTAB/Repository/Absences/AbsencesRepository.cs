@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences
@@ -13,22 +14,69 @@ namespace WorkManagementSystemTAB.Repository.Absences
 
         public Absence Add(Absence absence)
         {
-            throw new NotImplementedException();
+            var result = _context.Absences.FirstOrDefault(x => x.AbsenceId == absence.AbsenceId);
+
+            if (result != null)
+                return result;
+
+            _context.Absences.Add(absence);
+            Save();
+
+            return absence;
         }
         
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var foundAbsence = GetById(id);
+            
+            if(foundAbsence != null)
+            {
+                _context.Absences.Remove(foundAbsence);
+                Save();
+            }
         }
 
         public IEnumerable<Absence> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Absences.ToList();
         }
 
         public Absence GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Absences.FirstOrDefault(x => x.AbsenceId == id);
+        }
+
+        public Absence Modify(Absence absence)
+        {
+            var foundAbsence = GetById(absence.AbsenceId);
+
+            if (foundAbsence == null)
+                return null;
+
+            foundAbsence.AbsenceTypeId = absence.AbsenceTypeId;
+            foundAbsence.Confirmed = absence.Confirmed;
+            foundAbsence.StartDate = absence.StartDate;
+            foundAbsence.EndDate = absence.EndDate;
+            foundAbsence.UserId = absence.UserId;
+
+            Save();
+
+            return foundAbsence;
+
+        }
+
+        public Absence Approve(Guid id)
+        {
+            var absence = GetById(id);
+
+            if (absence == null)
+                return null;
+
+            absence.Confirmed = true;
+
+            Save();
+
+            return absence;
         }
     }
 }
