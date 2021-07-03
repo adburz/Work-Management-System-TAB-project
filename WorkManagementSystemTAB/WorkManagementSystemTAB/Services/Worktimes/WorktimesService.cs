@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Worktimes;
 
@@ -15,6 +16,11 @@ namespace WorkManagementSystemTAB.Services.Worktimes
         }
         public Worktime Add(Worktime entity) {
             return _worktimesRepository.Add(entity);
+        }
+
+        public Worktime Add(WorktimeDTO entity)
+        {
+            throw new NotImplementedException();
         }
 
         public void Delete(Guid id) {
