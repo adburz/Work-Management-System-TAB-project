@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.DTO.Response;
+using WorkManagementSystemTAB.DTO.Request;
 
 namespace WorkManagementSystemTAB.Services.Users
 {
@@ -18,9 +19,14 @@ namespace WorkManagementSystemTAB.Services.Users
 
 
         #region Methods
-        public User AddUser(User user)
+        public User AddUser(AddUserDTO user)
         {
-            return _userRepository.Add(user);
+            if (_userRepository.FindUserByEmail(user.Email) != null)
+            {
+                return null;
+            }
+            var newUser = new User() { Email = user.Email, Password = user.Password, FirstName = user.FirstName, LastName = user.LastName };
+            return _userRepository.Add(newUser);
         }
 
         public void DeleteUser(Guid id)

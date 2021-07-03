@@ -6,6 +6,8 @@ using System.Security.Claims;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Services.Users;
 using System.Linq;
+using WorkManagementSystemTAB.DTO.Request;
+
 namespace WorkManagementSystemTAB.Controllers
 {
     [Route("[controller]")]
@@ -43,11 +45,14 @@ namespace WorkManagementSystemTAB.Controllers
             return NotFound($"User with id {id} was not found.");
         }
 
-        //TODO UserDTO should be used over there.
-        [HttpPost]
-        public IActionResult AddUser(User user)
+        [HttpPost("addUser")]
+        public IActionResult AddUser(AddUserDTO user)
         {
             var result = _usersService.AddUser(user);
+            if(result==null)
+            {
+                return BadRequest($"User with email: {user.Email} already exists.");
+            }
             return Ok(result);
         }
     }

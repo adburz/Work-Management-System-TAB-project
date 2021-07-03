@@ -16,6 +16,7 @@ using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Roles;
+using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
@@ -28,13 +29,14 @@ namespace WorkManagementSystemTAB.Controllers
     {
         
         private readonly IUsersService _usersService;
+        private readonly IUsersRepository _usersRepository;
         private readonly IRolesRepository _rolesRepository;
 
         private readonly IAuthService _authService;
         
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
-            IUsersService usersService, IRolesRepository rolesRepository, IAuthService authService)
+            IUsersService usersService, IRolesRepository rolesRepository, IAuthService authService, IUsersRepository usersRepository)
         {
             _usersService = usersService;
 
@@ -43,6 +45,8 @@ namespace WorkManagementSystemTAB.Controllers
             _jwtConfig = optionsMonitor.CurrentValue;
 
             _authService = authService;
+
+            _usersRepository = usersRepository;
         }
 
         private string GenerateJwtToken(User user)
@@ -83,9 +87,10 @@ namespace WorkManagementSystemTAB.Controllers
                         Success = false
                     });
                 }
-                var newUser = new User() { Email = user.Email, Password = EncriptPassword(user.Password), RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
+                var newUser = new User() { Email = user.Email, Password = EncriptPassword(user.Password), 
+                    RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
 
-                _usersService.AddUser(newUser);
+                _usersRepository.Add(newUser);
 
                 var jwtToken = GenerateJwtToken(newUser);
                 return Ok(new RegistrationResponse()
