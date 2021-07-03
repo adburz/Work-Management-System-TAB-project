@@ -12,7 +12,7 @@ namespace WorkManagementSystemTAB.Repository.Authorization
 
         public AuthorizationRepository(TABWorkManagementSystemContext context) : base(context) { }
 
-        public User FindUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             var foundUser = _context.Users.FirstOrDefault(x=> x.Email == email);
             return foundUser;

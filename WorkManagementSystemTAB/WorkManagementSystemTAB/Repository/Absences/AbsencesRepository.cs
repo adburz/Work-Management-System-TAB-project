@@ -32,6 +32,7 @@ namespace WorkManagementSystemTAB.Repository.Absences
             if(foundAbsence != null)
             {
                 _context.Absences.Remove(foundAbsence);
+                Save();
             }
         }
 
@@ -43,6 +44,39 @@ namespace WorkManagementSystemTAB.Repository.Absences
         public Absence GetById(Guid id)
         {
             return _context.Absences.FirstOrDefault(x => x.AbsenceId == id);
+        }
+
+        public Absence Modify(Absence absence)
+        {
+            var foundAbsence = GetById(absence.AbsenceId);
+
+            if (foundAbsence == null)
+                return null;
+
+            foundAbsence.AbsenceTypeId = absence.AbsenceTypeId;
+            foundAbsence.Confirmed = absence.Confirmed;
+            foundAbsence.StartDate = absence.StartDate;
+            foundAbsence.EndDate = absence.EndDate;
+            foundAbsence.UserId = absence.UserId;
+
+            Save();
+
+            return foundAbsence;
+
+        }
+
+        public Absence Approve(Guid id)
+        {
+            var absence = GetById(id);
+
+            if (absence == null)
+                return null;
+
+            absence.Confirmed = true;
+
+            Save();
+
+            return absence;
         }
     }
 }

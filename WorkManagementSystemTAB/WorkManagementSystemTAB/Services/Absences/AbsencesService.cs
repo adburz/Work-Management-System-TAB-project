@@ -21,33 +21,40 @@ namespace WorkManagementSystemTAB.Services.Absences
             _usersRepository = usersRepository;
         }
 
-        public Absence Add(AbsenceDTO entity)
+        public Absence Add(AbsenceDTO absenceDTO)
         {
 
             var newAbssence = new Absence()
             {
-                UserId = entity.UserId,
+                UserId = absenceDTO.UserId,
                 AbsenceId = Guid.NewGuid(),
-                AbsenceTypeId = entity.AbsenceTypeId,
+                AbsenceTypeId = absenceDTO.AbsenceTypeId,
                 Confirmed = false,
-                StartDate = entity.StartDate,
-                EndDate = entity.EndDate
+                StartDate = absenceDTO.StartDate,
+                EndDate = absenceDTO.EndDate
             };
 
-            var absenceType = _absencesTypesRepository.GetById(entity.AbsenceTypeId);
+            var absenceType = _absencesTypesRepository.GetById(absenceDTO.AbsenceTypeId);
+            
+            if (absenceType == null)
+                return null;
 
             if (absenceType.Name == "on-demand" || absenceType.Name == "maternity")
                 newAbssence.Confirmed = true;
 
-
             _absencesRepository.Add(newAbssence);
             return newAbssence;
-
-
-
-
+        }
+       
+        public Absence Modify(Absence absence)
+        {
+            return _absencesRepository.Modify(absence);
         }
 
+        public Absence Approve(Guid id)
+        {
+            return _absencesRepository.Approve(id);
+        }
         // if(absenceType.IfShorted)
         //    {
         //        var Duration = entity.EndDate - entity.StartDate;
@@ -69,6 +76,17 @@ namespace WorkManagementSystemTAB.Services.Absences
         public Absence GetById(Guid id)
         {
             return _absencesRepository.GetById(id);
+        }
+
+        public bool IsAuthor(Absence absence, string email)
+        {
+
+            var user = _usersRepository.GetUserByEmail(email);
+            if (user == null)
+                return false;
+
+            return user.UserId == absence.UserId;
+
         }
     }
 }

@@ -36,7 +36,7 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             return entity;
         }
 
-        public User FindUserByEmail(string email)
+        public User GetUserByEmail(string email)
         {
             return  _context.Users.FirstOrDefault(x => x.Email == email);
         }

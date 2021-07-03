@@ -7,6 +7,6 @@ namespace WorkManagementSystemTAB.Repository.Authorization
 {
     public interface IAuthorizationRepository 
     {
-        public User FindUserByEmail(string email);
+        public User GetUserByEmail(string email);
     }
 }

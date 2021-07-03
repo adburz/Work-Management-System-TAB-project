@@ -30,7 +30,7 @@ namespace WorkManagementSystemTAB.Services.Users
 
         public UserDTO FindUserByEmail(string email)
         {
-            var user = _userRepository.FindUserByEmail(email);
+            var user = _userRepository.GetUserByEmail(email);
            
             if (user == null)
                 return null;
@@ -82,13 +82,11 @@ namespace WorkManagementSystemTAB.Services.Users
 
         public User Modify(User user)
         {
-
             return _userRepository.Modify(user);
         }
 
         public User Modify(Guid id, int daysToCut)
         {
-
             return _userRepository.Modify(id, daysToCut);
         }
         #endregion

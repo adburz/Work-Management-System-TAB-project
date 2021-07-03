@@ -92,8 +92,8 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
 
-        [HttpDelete]
-        public IActionResult DeleteAbsenceType([FromBody] Guid id)
+        [HttpDelete("id/{id}")]
+        public IActionResult DeleteAbsenceType(Guid id)
         {
             if (!IsManagerOrAbove())
                 return Unauthorized();

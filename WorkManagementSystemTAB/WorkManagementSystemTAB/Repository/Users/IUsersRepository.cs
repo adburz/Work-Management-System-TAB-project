@@ -8,7 +8,7 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
 {
     public interface IUsersRepository : IRepository<User, Guid>
     {
-        public User FindUserByEmail(string email);
+        public User GetUserByEmail(string email);
         public User Modify(User user);
         public User Modify(Guid id, int daysToCut);
     }

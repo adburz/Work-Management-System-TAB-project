@@ -10,6 +10,6 @@ namespace WorkManagementSystemTAB.Services.Authorization
     public interface IAuthService
     {
 
-        User FindUser(UserAuthorizationDTO user);
+        User GetUser(UserAuthorizationDTO user);
     }
 }
