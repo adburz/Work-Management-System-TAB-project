@@ -33,7 +33,7 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
             return _context.Worktimes.Find(id);
         }
 
-        public List<Worktime>GetWorktimesByUserId(Guid userId)
+        public IEnumerable<Worktime> GetWorktimesByUserId(Guid userId)
         {
             return _context.Worktimes.Select(x => x)
                                      .Where(x => x.UserId == userId)

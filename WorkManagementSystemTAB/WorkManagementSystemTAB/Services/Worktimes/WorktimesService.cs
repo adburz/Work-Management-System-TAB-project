@@ -29,7 +29,18 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             var newWorktime = new Worktime() { StartTime = entity.StartTime, EndTime = entity.EndTime, UserId = userId, WorktimeId=Guid.NewGuid() };
 
             return _worktimesRepository.Add(newWorktime);
+        }
 
+        public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(string email)
+        {
+            var userId = _usersRepository.FindUserByEmail(email).UserId;
+
+            var worktimeSchedule = _worktimesRepository.GetWorktimesByUserId(userId).Select(x => new DTO.Response.WorktimeDTO()
+            {
+                StartTime = x.StartTime,
+                EndTime = x.EndTime
+            });
+            return worktimeSchedule.Any() ? worktimeSchedule : null;
         }
 
         public void Delete(Guid id) {
@@ -37,7 +48,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
         }
 
         public IEnumerable<Worktime> GetAll() {
-            throw new NotImplementedException();
+            return _worktimesRepository.GetAll();
         }
 
         public Worktime GetById(Guid id) {

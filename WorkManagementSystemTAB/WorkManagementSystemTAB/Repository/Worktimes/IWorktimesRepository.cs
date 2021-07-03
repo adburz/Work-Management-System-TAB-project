@@ -6,6 +6,6 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
 {
     public interface IWorktimesRepository : IRepository<Worktime, Guid>
     {
-        public List<Worktime> GetWorktimesByUserId(Guid userId);
+        public IEnumerable<Worktime> GetWorktimesByUserId(Guid userId);
     }
 }
