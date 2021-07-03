@@ -38,6 +38,12 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(absence);
         }
 
+        [HttpGet("active")]
+        public IActionResult GetActiveAbsences()
+        {
+            return Ok(_absenceService.GetAllActive());
+        }
+
         [HttpPost]
         public IActionResult AddAbsence(AbsenceDTO absenceDTO)
         {
@@ -95,5 +101,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(result);
 
         }
+
+
     }
 }

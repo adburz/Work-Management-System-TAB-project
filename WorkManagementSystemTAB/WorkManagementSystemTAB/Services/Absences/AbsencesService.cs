@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Absences;
@@ -87,6 +88,11 @@ namespace WorkManagementSystemTAB.Services.Absences
 
             return user.UserId == absence.UserId;
 
+        }
+
+        public IEnumerable<Absence> GetAllActive()
+        {
+            return _absencesRepository.GetAll().Where(x => x.Confirmed == false).ToList();
         }
     }
 }
