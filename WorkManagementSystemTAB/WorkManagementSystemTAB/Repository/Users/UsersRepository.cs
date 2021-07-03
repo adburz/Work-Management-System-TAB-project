@@ -40,7 +40,41 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
         {
             return  _context.Users.FirstOrDefault(x => x.Email == email);
         }
+        
+        public User Modify(User user)
+        {
 
+            var foundUser = _context.Users.FirstOrDefault(x => x.UserId == user.UserId);
+            
+            if (foundUser == null)
+                return null;
+
+            foundUser.Password = user.Password;
+            foundUser.Email = user.Email;
+            foundUser.FirstName = user.FirstName;
+            foundUser.LastName = user.LastName;
+            foundUser.VacationDaysCount = user.VacationDaysCount;
+
+            Save();
+
+            return foundUser;
+
+        }
+
+        public User Modify (Guid id, int daysToCut)
+        {
+
+            var foundUser = GetById(id);
+
+            if (foundUser == null)
+                return null;
+
+            foundUser.VacationDaysCount -= daysToCut;
+
+            Save();
+
+            return foundUser;
+        }
     }
 
 }

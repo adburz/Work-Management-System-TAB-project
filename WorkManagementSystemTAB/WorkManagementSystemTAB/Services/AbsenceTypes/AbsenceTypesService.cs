@@ -6,10 +6,10 @@ using WorkManagementSystemTAB.Repository.AbsenceTypes;
 
 namespace WorkManagementSystemTAB.Services.AbsenceTypes
 {
-    public class AbsencesTypesService : IAbsenceTypesService
+    public class AbsenceTypesService : IAbsenceTypesService
     {
         private readonly IAbsenceTypesRepository _absencesRepository;
-        public AbsencesTypesService(IAbsenceTypesRepository absencesRepository) {
+        public AbsenceTypesService(IAbsenceTypesRepository absencesRepository) {
             _absencesRepository = absencesRepository;
         }
 

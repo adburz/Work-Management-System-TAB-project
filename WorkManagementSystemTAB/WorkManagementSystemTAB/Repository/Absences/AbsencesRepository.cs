@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences
@@ -13,22 +14,35 @@ namespace WorkManagementSystemTAB.Repository.Absences
 
         public Absence Add(Absence absence)
         {
-            throw new NotImplementedException();
+            var result = _context.Absences.FirstOrDefault(x => x.AbsenceId == absence.AbsenceId);
+
+            if (result != null)
+                return result;
+
+            _context.Absences.Add(absence);
+            Save();
+
+            return absence;
         }
         
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var foundAbsence = GetById(id);
+            
+            if(foundAbsence != null)
+            {
+                _context.Absences.Remove(foundAbsence);
+            }
         }
 
         public IEnumerable<Absence> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Absences.ToList();
         }
 
         public Absence GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Absences.FirstOrDefault(x => x.AbsenceId == id);
         }
     }
 }

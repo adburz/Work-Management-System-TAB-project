@@ -78,6 +78,19 @@ namespace WorkManagementSystemTAB.Services.Users
             }
             ).ToList();
         }
+
+
+        public User Modify(User user)
+        {
+
+            return _userRepository.Modify(user);
+        }
+
+        public User Modify(Guid id, int daysToCut)
+        {
+
+            return _userRepository.Modify(id, daysToCut);
+        }
         #endregion
     }
 }

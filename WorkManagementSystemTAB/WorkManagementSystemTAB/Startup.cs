@@ -114,7 +114,7 @@ namespace WorkManagementSystemTAB
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<IAbsenceTypesService, AbsencesTypesService>();
+            services.AddScoped<IAbsenceTypesService, AbsenceTypesService>();
             services.AddScoped<IAbsencesService, AbsencesService>();
 
 
