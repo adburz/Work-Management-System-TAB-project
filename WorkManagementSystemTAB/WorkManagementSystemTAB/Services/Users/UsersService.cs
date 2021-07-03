@@ -49,6 +49,10 @@ namespace WorkManagementSystemTAB.Services.Users
         public UserDTO GetUser(Guid id)
         {
             var user = _userRepository.GetById(id);
+            
+            if (user == null)
+                return null;
+
             return new UserDTO()
             {
                 Email = user.Email,
