@@ -26,12 +26,17 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var absenceType = _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == id);
+            if (absenceType != null)
+            {
+                _context.AbsenceTypes.Remove(absenceType);
+                Save();
+            }
         }
 
         public IEnumerable<AbsenceType> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.AbsenceTypes.ToList();
         }
 
         public AbsenceType GetById(Guid id)
