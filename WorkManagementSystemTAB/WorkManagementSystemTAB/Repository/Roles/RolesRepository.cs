@@ -5,10 +5,10 @@ using System.Linq;
 
 namespace WorkManagementSystemTAB.Repository.Roles
 {
-    public class RolesRepository : IRolesRepository
+    public class RolesRepository :BaseRepository, IRolesRepository
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public RolesRepository(TABWorkManagementSystemContext context) => _context = context;
+
+        public RolesRepository(TABWorkManagementSystemContext context) : base(context) { }
 
         public Role Add(Role entity)
         {
@@ -54,9 +54,6 @@ namespace WorkManagementSystemTAB.Repository.Roles
         {
             return _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId)).AccessLevel.ToString();
         }
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

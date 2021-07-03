@@ -7,10 +7,10 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Authorization
 {
-    public class AuthorizationRepository : IAuthorizationRepository
+    public class AuthorizationRepository :BaseRepository, IAuthorizationRepository
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public AuthorizationRepository(TABWorkManagementSystemContext context) => _context = context;
+
+        public AuthorizationRepository(TABWorkManagementSystemContext context) : base(context) { }
 
         public User FindUserByEmail(string email)
         {

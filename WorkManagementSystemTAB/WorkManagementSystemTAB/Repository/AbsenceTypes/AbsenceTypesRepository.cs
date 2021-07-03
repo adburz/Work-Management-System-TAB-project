@@ -6,19 +6,22 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.AbsenceTypes
 {
-    public class AbsenceTypesRepository : IAbsenceTypesRepository
+    public class AbsenceTypesRepository : BaseRepository, IAbsenceTypesRepository
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public AbsenceTypesRepository(TABWorkManagementSystemContext context) => _context = context;
 
-        public AbsenceType Add(AbsenceType entity)
-        {
-            throw new NotImplementedException();
-        }
+        public AbsenceTypesRepository(TABWorkManagementSystemContext context) : base(context) { }
 
-        public AbsenceType AddAsync(AbsenceType entity)
+        public AbsenceType Add(AbsenceType enity)
         {
-            throw new NotImplementedException();
+            var dataBaseItem = _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == enity.AbsenceTypeId);
+
+            if (dataBaseItem == null)
+            {
+                _context.AbsenceTypes.Add(enity);
+                Save();
+            }
+
+            return (enity);
         }
 
         public void Delete(Guid id)
