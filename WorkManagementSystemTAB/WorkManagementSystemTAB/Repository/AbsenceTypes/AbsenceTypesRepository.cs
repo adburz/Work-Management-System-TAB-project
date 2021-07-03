@@ -20,7 +20,6 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
                 _context.AbsenceTypes.Add(enity);
                 Save();
             }
-
             return (enity);
         }
 
@@ -34,6 +33,20 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
             }
         }
 
+        public AbsenceType Modify(AbsenceType absenceType)
+        {
+            var foundAbsenceType = _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == absenceType.AbsenceTypeId);
+            
+            if (foundAbsenceType == null)
+                return null;
+
+            foundAbsenceType.IfShorted = absenceType.IfShorted;
+            foundAbsenceType.Name = absenceType.Name;
+            Save();
+
+            return foundAbsenceType;
+        }
+
         public IEnumerable<AbsenceType> GetAll()
         {
             return _context.AbsenceTypes.ToList();
@@ -41,12 +54,8 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
 
         public AbsenceType GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == id);
         }
 
-        public void Save()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

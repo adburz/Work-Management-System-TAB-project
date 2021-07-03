@@ -12,9 +12,13 @@ using Microsoft.OpenApi.Models;
 using System.Text;
 using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.Absences;
+using WorkManagementSystemTAB.Repository.AbsenceTypes;
 using WorkManagementSystemTAB.Repository.Authorization;
 using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Repository.UserResitory;
+using WorkManagementSystemTAB.Services.Absences;
+using WorkManagementSystemTAB.Services.AbsenceTypes;
 using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
@@ -53,18 +57,18 @@ namespace WorkManagementSystemTAB
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
                   {
-                      new OpenApiSecurityScheme
-                       {
-                      Reference = new OpenApiReference
-            {
-                Type = ReferenceType.SecurityScheme,
-                Id = "Bearer"
-            }
-        },
-        new string[] { }
-    }
-
-});
+                    new OpenApiSecurityScheme
+                    {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                    },
+                    new string[] { }
+                  }
+                }
+                );
             });
 
 
@@ -72,8 +76,6 @@ namespace WorkManagementSystemTAB
             services.AddDbContext<TABWorkManagementSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MainDbConnection")));
             //JWT
             services.Configure<JwtConfig>(Configuration.GetSection("JwtConfig"));
-
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -103,11 +105,18 @@ namespace WorkManagementSystemTAB
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
+            services.AddScoped<IAbsenceTypesRepository, AbsenceTypesRepository>();
+            services.AddScoped<IAbsencesRepository, AbsencesRepository>();
+            
+
 
             //Services
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IAbsenceTypesService, AbsencesTypesService>();
+            services.AddScoped<IAbsencesService, AbsencesService>();
+
 
         }
 

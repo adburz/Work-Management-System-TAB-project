@@ -31,6 +31,10 @@ namespace WorkManagementSystemTAB.Services.Users
         public UserDTO FindUserByEmail(string email)
         {
             var user = _userRepository.FindUserByEmail(email);
+           
+            if (user == null)
+                return null;
+
             return new UserDTO()
             {
                 Email = user.Email,
