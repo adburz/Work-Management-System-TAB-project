@@ -34,7 +34,33 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(absenceTypes);
         }
 
-        
+        [HttpGet("{id}")]
+        [AllowAnonymous]
+        public IActionResult GetAbsenceTypeById(Guid id)
+        {
+            var result = _absenceTypesService.GetById(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+        }
+
+        [HttpGet("{name}")]
+        [AllowAnonymous]
+        public IActionResult GetAbsenceTypeByName(string name)
+        {
+            var result = _absenceTypesService.GetByName(name);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
+
+        }
+
+
+
         [HttpPost]
         public IActionResult AddAbsenceType([FromBody] AbsenceTypeDTO absenceTypeRequest)
         {
@@ -48,6 +74,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(result);
 
         }
+
 
         [HttpPut]
         public IActionResult ModifyAbsenceType([FromBody] AbsenceType absenceTypeRequest)
@@ -64,17 +91,18 @@ namespace WorkManagementSystemTAB.Controllers
 
         }
 
+
         [HttpDelete]
-        [AllowAnonymous]
         public IActionResult DeleteAbsenceType([FromBody] Guid id)
         {
             if (!IsManagerOrAbove())
                 return Unauthorized();
 
             _absenceTypesService.Delete(id);
-            
+
             return Ok();
 
         }
+
     }
 }

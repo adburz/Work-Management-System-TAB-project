@@ -36,7 +36,7 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
         public AbsenceType Modify(AbsenceType absenceType)
         {
             var foundAbsenceType = _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == absenceType.AbsenceTypeId);
-            
+
             if (foundAbsenceType == null)
                 return null;
 
@@ -55,6 +55,11 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
         public AbsenceType GetById(Guid id)
         {
             return _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == id);
+        }
+        
+        public AbsenceType GetByName(string name)
+        {
+            return _context.AbsenceTypes.FirstOrDefault(x => x.Name == name);
         }
 
     }

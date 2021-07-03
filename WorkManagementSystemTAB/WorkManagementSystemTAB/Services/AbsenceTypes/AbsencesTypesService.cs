@@ -45,5 +45,10 @@ namespace WorkManagementSystemTAB.Services.AbsenceTypes
         {
             return _absencesRepository.GetById(id);
         }
+
+        public AbsenceType GetByName(string name)
+        {
+            return _absencesRepository.GetByName(name);
+        }
     }
 }
