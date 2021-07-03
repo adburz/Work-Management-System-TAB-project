@@ -34,7 +34,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(absenceTypes);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("id/{id}")]
         [AllowAnonymous]
         public IActionResult GetAbsenceTypeById(Guid id)
         {
@@ -46,7 +46,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(result);
         }
 
-        [HttpGet("{name}")]
+        [HttpGet("name/{name}")]
         [AllowAnonymous]
         public IActionResult GetAbsenceTypeByName(string name)
         {
