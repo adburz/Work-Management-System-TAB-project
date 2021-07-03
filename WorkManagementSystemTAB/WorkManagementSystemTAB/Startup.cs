@@ -15,9 +15,11 @@ using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Authorization;
 using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Repository.UserResitory;
+using WorkManagementSystemTAB.Repository.Worktimes;
 using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
+using WorkManagementSystemTAB.Services.Worktimes;
 
 namespace WorkManagementSystemTAB
 {
@@ -103,11 +105,13 @@ namespace WorkManagementSystemTAB
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
+            services.AddScoped<IWorktimesRepository, WorktimesRepository>();
 
             //Services
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IRolesService, RolesService>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IWorktimesService, WorktimesService>();
 
         }
 

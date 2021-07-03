@@ -20,10 +20,15 @@ namespace WorkManagementSystemTAB.Controllers
             var worktimes = _worktimesService.GetAll();
             return Ok(worktimes);
         }
-        [HttpPost("add")]
-        public IActionResult Add([FromBody]WorktimeDTO worktimeDTO)
+        [HttpPost("addWorktime")]
+        public IActionResult Add(WorktimeDTO worktime)
         {
-            return Ok();
+            var newWorktime = _worktimesService.Add(worktime);
+            if(newWorktime==null)
+            {
+                return BadRequest("Worktime you are trying to add is overlapping with user's worktime schedule.");
+            }
+            return Ok(newWorktime);
         }
     }
 }

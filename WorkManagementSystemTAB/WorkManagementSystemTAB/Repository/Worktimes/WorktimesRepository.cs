@@ -16,11 +16,6 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
             return entity;
         }
 
-        public Worktime AddAsync(Worktime entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(Guid id)
         {
             var worktimeToDelete = _context.Worktimes.FirstOrDefault(u => u.UserId == id);
@@ -36,6 +31,13 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
         public Worktime GetById(Guid id)
         {
             return _context.Worktimes.Find(id);
+        }
+
+        public List<Worktime>GetWorktimesByUserId(Guid userId)
+        {
+            return _context.Worktimes.Select(x => x)
+                                     .Where(x => x.UserId == userId)
+                                     .ToList();                 
         }
 
         public void Save()
