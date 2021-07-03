@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.Roles;
 
@@ -11,7 +12,7 @@ namespace WorkManagementSystemTAB.Services.Roles
         public RolesService(IRolesRepository rolesRepository) {
             _rolesRepository = rolesRepository;
         }
-        public Role Add(Role entity) {
+        public Role Add(RoleDTO entity) {
             throw new NotImplementedException();
         }
 

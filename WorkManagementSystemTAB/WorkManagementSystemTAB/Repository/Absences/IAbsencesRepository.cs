@@ -6,7 +6,12 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences
 {
-    public interface IAbsencesRepository : IRepository<Absence, Guid>
+    public interface IAbsencesRepository 
     {
+        Absence Add(Absence entity);
+        void Delete(Guid id);
+        IEnumerable<Absence> GetAll();
+        Absence GetById(Guid id)
+
     }
 }

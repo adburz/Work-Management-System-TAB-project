@@ -7,10 +7,10 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.UserResitory
 {
-    public class UsersRepository : IUsersRepository
+    public class UsersRepository :BaseRepository, IUsersRepository
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public UsersRepository(TABWorkManagementSystemContext context) => _context = context;
+
+        public UsersRepository(TABWorkManagementSystemContext context) : base(context) { }
 
         public void Delete(Guid id)
         {
@@ -36,20 +36,11 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             return entity;
         }
 
-        public void Save()
-        {
-            _context.SaveChanges();
-        }
-
         public User FindUserByEmail(string email)
         {
             return  _context.Users.FirstOrDefault(x => x.Email == email);
         }
 
-        public User AddAsync(User entity)
-        {
-            throw new NotImplementedException();
-        }
     }
 
 }

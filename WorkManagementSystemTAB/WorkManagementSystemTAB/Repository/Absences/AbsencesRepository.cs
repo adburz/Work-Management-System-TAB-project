@@ -6,21 +6,16 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences
 {
-    public class AbsencesRepository : IAbsencesRepository
+    public class AbsencesRepository : BaseRepository, IAbsencesRepository
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public AbsencesRepository(TABWorkManagementSystemContext context) => _context = context;
 
-        public Absence Add(Absence entity)
+        public AbsencesRepository(TABWorkManagementSystemContext context) :base(context) {}
+
+        public Absence Add(Absence absence)
         {
             throw new NotImplementedException();
         }
-
-        public Absence AddAsync(Absence entity)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public void Delete(Guid id)
         {
             throw new NotImplementedException();
@@ -32,11 +27,6 @@ namespace WorkManagementSystemTAB.Repository.Absences
         }
 
         public Absence GetById(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void Save()
         {
             throw new NotImplementedException();
         }
