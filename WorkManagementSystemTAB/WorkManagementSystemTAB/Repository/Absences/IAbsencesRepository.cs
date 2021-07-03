@@ -11,7 +11,7 @@ namespace WorkManagementSystemTAB.Repository.Absences
         Absence Add(Absence entity);
         void Delete(Guid id);
         IEnumerable<Absence> GetAll();
-        Absence GetById(Guid id)
+        Absence GetById(Guid id);
 
     }
 }
