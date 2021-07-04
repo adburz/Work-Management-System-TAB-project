@@ -10,6 +10,6 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
     {
         public User GetUserByEmail(string email);
         public User Modify(User user);
-        public User Modify(Guid id, int daysToCut);
+        public User CutDaysOff(Guid id, int daysToCut);
     }
 }

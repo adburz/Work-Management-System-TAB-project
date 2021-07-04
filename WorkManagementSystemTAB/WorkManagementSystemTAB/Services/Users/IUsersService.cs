@@ -15,7 +15,7 @@ namespace WorkManagementSystemTAB.Services.Users
         public UserDTO FindUserByEmail(string email);
         public void DeleteUser(Guid id);
         public User Modify(User user);
-        public User Modify(Guid id, int daysToCut);
+        public User CutDaysOff(Guid id, int daysToCut);
 
     }
 }
