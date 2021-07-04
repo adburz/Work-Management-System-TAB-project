@@ -13,11 +13,13 @@ namespace WorkManagementSystemTAB.Services.Roles
             _rolesRepository = rolesRepository;
         }
         public Role Add(RoleDTO entity) {
-            throw new NotImplementedException();
+            if (_rolesRepository.GetRoleByName(entity.Name).AccessLevel == entity.AccessLevel) return null;
+            var newRole = new Role() { AccessLevel = entity.AccessLevel, Name = entity.Name, RoleId = Guid.NewGuid() };
+            return  _rolesRepository.Add(newRole); 
         }
 
         public void Delete(Guid id) {
-            throw new NotImplementedException();
+            _rolesRepository.Delete(id);
         }
 
         public IEnumerable<Role> GetAll() {
