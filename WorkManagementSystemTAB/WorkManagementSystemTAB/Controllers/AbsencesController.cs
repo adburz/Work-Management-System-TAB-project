@@ -146,7 +146,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
 
-        [HttpPost("approve")]
+        [HttpGet("approve/{id}")]
         public IActionResult ApproveAbsence(Guid id)
         {
             if (!IsManagerOrAbove())
