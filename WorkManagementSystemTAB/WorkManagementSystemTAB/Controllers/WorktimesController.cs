@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Services.Worktimes;
 
@@ -15,15 +17,28 @@ namespace WorkManagementSystemTAB.Controllers
             _worktimesService = worktimesService;
         }
 
-        [HttpGet]
+        [HttpGet("getUsersWorktimes")]
+        public IActionResult GetUsersWorktimeSchedule(Guid userId)
+        {
+            var schedule = _worktimesService.GetUsersWorktimeSchedule(userId);
+            return schedule.Any() ? Ok(schedule) : BadRequest("User has not any worktime blocks planned or does not exist.");
+        }
+
+        [HttpGet("getAll")]
         public IActionResult GetAll() {
             var worktimes = _worktimesService.GetAll();
             return Ok(worktimes);
         }
-        [HttpPost("add")]
-        public IActionResult Add([FromBody]WorktimeDTO worktimeDTO)
+        [HttpPost("addWorktime")]
+        public IActionResult Add(WorktimeDTO worktime)
         {
-            return Ok();
+            var newWorktime = _worktimesService.Add(worktime);
+            return newWorktime == null ? BadRequest("Worktime you are trying to add is overlapping with user's worktime schedule.") : Ok(newWorktime);
+        }
+        [HttpDelete("delete/{worktimeId}")]
+        public void Delete(Guid worktimeId)
+        {
+            _worktimesService.Delete(worktimeId);
         }
     }
 }

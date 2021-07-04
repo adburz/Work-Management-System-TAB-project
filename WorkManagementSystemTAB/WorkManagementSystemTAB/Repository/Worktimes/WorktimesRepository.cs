@@ -5,10 +5,9 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Worktimes
 {
-    public class WorktimesRepository : IWorktimesRepository
+    public class WorktimesRepository : BaseRepository,IWorktimesRepository
     {
-        private readonly TABWorkManagementSystemContext _context;
-        public WorktimesRepository(TABWorkManagementSystemContext context) => _context = context;
+        public WorktimesRepository(TABWorkManagementSystemContext context) : base(context) { }
         public Worktime Add(Worktime entity)
         {
             _context.Worktimes.Add(entity);
@@ -16,16 +15,11 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
             return entity;
         }
 
-        public Worktime AddAsync(Worktime entity)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Delete(Guid id)
         {
-            var worktimeToDelete = _context.Worktimes.FirstOrDefault(u => u.UserId == id);
-            if (worktimeToDelete != null)
-            { _context.Remove(worktimeToDelete); }
+            var worktimeToDelete = _context.Worktimes.FirstOrDefault(w => w.WorktimeId==id);
+            if (worktimeToDelete != null) _context.Remove(worktimeToDelete);
+            this.Save();
         }
 
         public IEnumerable<Worktime> GetAll()
@@ -38,9 +32,11 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
             return _context.Worktimes.Find(id);
         }
 
-        public void Save()
+        public IEnumerable<Worktime> GetWorktimesByUserId(Guid userId)
         {
-            _context.SaveChanges();
+            return _context.Worktimes.Select(x => x)
+                                     .Where(x => x.UserId == userId)
+                                     .ToList();                 
         }
     }
 }

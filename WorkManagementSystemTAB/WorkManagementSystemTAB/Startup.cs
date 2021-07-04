@@ -17,11 +17,14 @@ using WorkManagementSystemTAB.Repository.AbsenceTypes;
 using WorkManagementSystemTAB.Repository.Authorization;
 using WorkManagementSystemTAB.Repository.Roles;
 using WorkManagementSystemTAB.Repository.UserResitory;
+
+using WorkManagementSystemTAB.Repository.Worktimes;
 using WorkManagementSystemTAB.Services.Absences;
 using WorkManagementSystemTAB.Services.AbsenceTypes;
 using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
+using WorkManagementSystemTAB.Services.Worktimes;
 
 namespace WorkManagementSystemTAB
 {
@@ -105,10 +108,9 @@ namespace WorkManagementSystemTAB
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddScoped<IRolesRepository, RolesRepository>();
             services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
+            services.AddScoped<IWorktimesRepository, WorktimesRepository>();
             services.AddScoped<IAbsenceTypesRepository, AbsenceTypesRepository>();
             services.AddScoped<IAbsencesRepository, AbsencesRepository>();
-            
-
 
             //Services
             services.AddScoped<IUsersService, UsersService>();
@@ -116,7 +118,7 @@ namespace WorkManagementSystemTAB
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IAbsenceTypesService, AbsenceTypesService>();
             services.AddScoped<IAbsencesService, AbsencesService>();
-
+            services.AddScoped<IWorktimesService, WorktimesService>();
 
         }
 

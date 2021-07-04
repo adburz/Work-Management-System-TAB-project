@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
+using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.Repository.Worktimes;
 
 namespace WorkManagementSystemTAB.Services.Worktimes
@@ -11,18 +12,33 @@ namespace WorkManagementSystemTAB.Services.Worktimes
     public class WorktimesService : IWorktimesService
     {
         private readonly IWorktimesRepository _worktimesRepository;
-        public WorktimesService(IWorktimesRepository worktimesRepository) {
+        private readonly IUsersRepository _usersRepository;
+        public WorktimesService(IWorktimesRepository worktimesRepository, IUsersRepository usersRepository) {
             _worktimesRepository = worktimesRepository;
+            _usersRepository = usersRepository;
         }
-        
-
         public Worktime Add(WorktimeDTO entity)
         {
-            var newWorktime = new Worktime()
-            {
+            var userId = _usersRepository.GetById(entity.UserId).UserId;
+            var workSchedule = _worktimesRepository.GetWorktimesByUserId(userId);
+            var overlappedWorktimes = workSchedule.Where(x => (x.StartTime <= entity.EndTime && entity.StartTime <= x.EndTime)).ToList();
 
-            };
+            if(overlappedWorktimes.Any()) return null;
+
+            var newWorktime = new Worktime() { StartTime = entity.StartTime, EndTime = entity.EndTime, UserId = userId, WorktimeId=Guid.NewGuid() };
+
             return _worktimesRepository.Add(newWorktime);
+        }
+
+        public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(Guid userId)
+        {
+            var worktimeSchedule = _worktimesRepository.GetWorktimesByUserId(userId).Select(x => new DTO.Response.WorktimeDTO()
+            {
+                StartTime = x.StartTime,
+                EndTime = x.EndTime,
+                WorktimeId=x.WorktimeId 
+            });
+            return worktimeSchedule.Any() ? worktimeSchedule : null;
         }
 
         public void Delete(Guid id) {
@@ -30,7 +46,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
         }
 
         public IEnumerable<Worktime> GetAll() {
-            throw new NotImplementedException();
+            return _worktimesRepository.GetAll();
         }
 
         public Worktime GetById(Guid id) {

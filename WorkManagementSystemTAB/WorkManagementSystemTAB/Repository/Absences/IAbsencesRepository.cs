@@ -15,6 +15,5 @@ namespace WorkManagementSystemTAB.Repository.Absences
         Absence GetById(Guid id);
         public Absence Modify(Absence absence);
         public Absence Approve(Guid id);
-
     }
 }
