@@ -35,6 +35,13 @@ namespace WorkManagementSystemTAB.Services.Absences
                 EndDate = absenceDTO.EndDate
             };
 
+            if((newAbssence.EndDate - newAbssence.StartDate).Minutes < 0 )
+            {
+                var tmp = newAbssence.EndDate;
+                newAbssence.EndDate = newAbssence.StartDate;
+                newAbssence.StartDate = tmp;
+            }
+
             var absenceType = _absencesTypesRepository.GetById(absenceDTO.AbsenceTypeId);
             
             if (absenceType == null)
