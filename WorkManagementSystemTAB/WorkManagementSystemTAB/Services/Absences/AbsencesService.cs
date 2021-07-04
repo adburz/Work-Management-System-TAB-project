@@ -54,19 +54,39 @@ namespace WorkManagementSystemTAB.Services.Absences
 
         public Absence Approve(Guid id)
         {
-            return _absencesRepository.Approve(id);
-        }
-        // if(absenceType.IfShorted)
-        //    {
-        //        var Duration = entity.EndDate - entity.StartDate;
-        //var daysToCut = Duration.Days <= 0 ? 1 : Duration.Days;
+            var absence = _absencesRepository.Approve(id);
 
-        //_usersRepository.Modify(entity.UserId, daysToCut);
-        //    }
+            if (absence == null)
+                return null;
+
+            var absenceType = _absencesTypesRepository.GetById(absence.AbsenceTypeId);
+
+            if((bool)(absenceType?.IfShorted))
+            {
+                var Duration = absence.EndDate - absence.StartDate;
+                var daysToCut = Duration.Days <= 0 ? 1 : Duration.Days;
+
+                var user =_usersRepository.CutDaysOff(absence.UserId, daysToCut);
+                
+                if (user == null) //error in base absence has wrong user bound to it 
+                    return null;
+
+            }
+
+            return absence;
+        }
+       
 
         public void Delete(Guid id)
         {
             _absencesRepository.Delete(id);
+        }
+
+        public IEnumerable<Absence> GetAllWorkerAbsensces(Guid id)
+        {
+            var allAbsences = GetAll();
+
+            return allAbsences.Where(x => x.UserId == id).ToList();
         }
 
         public IEnumerable<Absence> GetAll()

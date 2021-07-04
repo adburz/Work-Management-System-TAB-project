@@ -12,5 +12,6 @@ namespace WorkManagementSystemTAB.Services.Absences
         public Absence Approve(Guid id);
         public bool IsAuthor(Absence absence, string email);
         public IEnumerable<Absence> GetAllActive();
+        public IEnumerable<Absence> GetAllWorkerAbsensces(Guid id);
     }
 }

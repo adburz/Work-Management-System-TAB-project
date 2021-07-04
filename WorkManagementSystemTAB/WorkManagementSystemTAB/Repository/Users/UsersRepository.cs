@@ -61,9 +61,8 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
 
         }
 
-        public User Modify (Guid id, int daysToCut)
+        public User CutDaysOff(Guid id, int daysToCut)
         {
-
             var foundUser = GetById(id);
 
             if (foundUser == null)

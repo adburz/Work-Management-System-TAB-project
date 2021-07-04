@@ -85,9 +85,9 @@ namespace WorkManagementSystemTAB.Services.Users
             return _userRepository.Modify(user);
         }
 
-        public User Modify(Guid id, int daysToCut)
+        public User CutDaysOff(Guid id, int daysToCut)
         {
-            return _userRepository.Modify(id, daysToCut);
+            return _userRepository.CutDaysOff(id, daysToCut);
         }
         #endregion
     }

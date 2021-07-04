@@ -23,9 +23,20 @@ namespace WorkManagementSystemTAB.Controllers
         public IActionResult GetAbsences() 
         {
             var absences = _absenceService.GetAll();
+
             return Ok(absences);
         }
 
+        [HttpGet("worker/{id}")]
+        public IActionResult GetAllWorkerAbsences(Guid id)
+        {
+            var allWorkerAbsences = _absenceService.GetAllWorkerAbsensces(id);
+
+            if (allWorkerAbsences == null)
+                return NotFound();
+
+            return Ok(allWorkerAbsences);
+        }
 
         [HttpGet("id/{id}")]
         public IActionResult GetAbsenceById(Guid id)
@@ -99,7 +110,6 @@ namespace WorkManagementSystemTAB.Controllers
                 return NotFound();
 
             return Ok(result);
-
         }
 
 
