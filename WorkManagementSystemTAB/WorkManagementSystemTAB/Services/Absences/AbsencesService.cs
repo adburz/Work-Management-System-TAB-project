@@ -24,7 +24,6 @@ namespace WorkManagementSystemTAB.Services.Absences
 
         public Absence Add(AbsenceDTO absenceDTO)
         {
-
             var newAbssence = new Absence()
             {
                 UserId = absenceDTO.UserId,
@@ -35,7 +34,7 @@ namespace WorkManagementSystemTAB.Services.Absences
                 EndDate = absenceDTO.EndDate
             };
 
-            if((newAbssence.EndDate - newAbssence.StartDate).Minutes < 0 )
+            if ((newAbssence.EndDate - newAbssence.StartDate).Minutes < 0)
             {
                 var tmp = newAbssence.EndDate;
                 newAbssence.EndDate = newAbssence.StartDate;
@@ -43,7 +42,7 @@ namespace WorkManagementSystemTAB.Services.Absences
             }
 
             var absenceType = _absencesTypesRepository.GetById(absenceDTO.AbsenceTypeId);
-            
+
             if (absenceType == null)
                 return null;
 
@@ -53,7 +52,7 @@ namespace WorkManagementSystemTAB.Services.Absences
             _absencesRepository.Add(newAbssence);
             return newAbssence;
         }
-       
+
         public Absence Modify(Absence absence)
         {
             return _absencesRepository.Modify(absence);
@@ -68,13 +67,13 @@ namespace WorkManagementSystemTAB.Services.Absences
 
             var absenceType = _absencesTypesRepository.GetById(absence.AbsenceTypeId);
 
-            if((bool)(absenceType?.IfShorted))
+            if ((bool)(absenceType?.IfShorted))
             {
                 var Duration = absence.EndDate - absence.StartDate;
                 var daysToCut = Duration.Days <= 0 ? 1 : Duration.Days;
 
-                var user =_usersRepository.CutDaysOff(absence.UserId, daysToCut);
-                
+                var user = _usersRepository.CutDaysOff(absence.UserId, daysToCut);
+
                 if (user == null) //error in base absence has wrong user bound to it 
                     return null;
 
@@ -82,7 +81,7 @@ namespace WorkManagementSystemTAB.Services.Absences
 
             return absence;
         }
-       
+
 
         public void Delete(Guid id)
         {
@@ -121,5 +120,21 @@ namespace WorkManagementSystemTAB.Services.Absences
         {
             return _absencesRepository.GetAll().Where(x => x.Confirmed == false).ToList();
         }
+
+        public IEnumerable<Absence> GetAllActiveWorkerAbsences(Guid id)
+        {
+            return GetAllActive().Where(x => x.UserId == id).ToList();
+        }
+
+        public IEnumerable<Absence> GetAllConfirmed()
+        {
+            return _absencesRepository.GetAll().Where(x => x.Confirmed == true).ToList();
+        }
+        
+        public IEnumerable<Absence> GetAllConfirmedeWorkerAbsences(Guid id)
+        {
+            return GetAllConfirmed().Where(x => x.UserId == id).ToList();
+        }
+
     }
 }

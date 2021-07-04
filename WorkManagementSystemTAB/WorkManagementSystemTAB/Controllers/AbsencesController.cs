@@ -38,6 +38,41 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(allWorkerAbsences);
         }
 
+        [HttpGet("active")]
+        public IActionResult GetAllActiveAbsences()
+        {
+            return Ok(_absenceService.GetAllActive());
+        }
+
+        [HttpGet("active/worker/{id}")]
+        public IActionResult GetAllActiveWorkerAbsences(Guid id) //active == not confirmed
+        {
+            var allActiveWorkerAbsences = _absenceService.GetAllActiveWorkerAbsences(id);
+
+            if (allActiveWorkerAbsences == null)
+                return NotFound();
+
+            return Ok(allActiveWorkerAbsences);
+        }
+
+        [HttpGet("confirmed")]
+        public IActionResult GetAllConfirmedAbsences()
+        {
+            return Ok(_absenceService.GetAllConfirmed());
+        }
+
+        [HttpGet("confirmed/worker/{id}")]
+        public IActionResult GetAllConfirmedWorkerAbsences(Guid id) //active == not confirmed
+        {
+            var allConfirmedWorkerAbsences = _absenceService.GetAllConfirmedeWorkerAbsences(id);
+
+            if (allConfirmedWorkerAbsences == null)
+                return NotFound();
+
+            return Ok(allConfirmedWorkerAbsences);
+        }
+
+
         [HttpGet("id/{id}")]
         public IActionResult GetAbsenceById(Guid id)
         {
@@ -49,11 +84,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(absence);
         }
 
-        [HttpGet("active")]
-        public IActionResult GetActiveAbsences()
-        {
-            return Ok(_absenceService.GetAllActive());
-        }
+        
 
         [HttpPost]
         public IActionResult AddAbsence(AbsenceDTO absenceDTO)
