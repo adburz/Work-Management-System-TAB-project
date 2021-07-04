@@ -18,9 +18,9 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpGet("getUsersWorktimes")]
-        public IActionResult GetUsersWorktimeSchedule(string email)
+        public IActionResult GetUsersWorktimeSchedule(Guid userId)
         {
-            var schedule = _worktimesService.GetUsersWorktimeSchedule(email);
+            var schedule = _worktimesService.GetUsersWorktimeSchedule(userId);
             return schedule.Any() ? Ok(schedule) : BadRequest("User has not any worktime blocks planned or does not exist.");
         }
 
@@ -33,14 +33,12 @@ namespace WorkManagementSystemTAB.Controllers
         public IActionResult Add(WorktimeDTO worktime)
         {
             var newWorktime = _worktimesService.Add(worktime);
-            if(newWorktime==null) return BadRequest("Worktime you are trying to add is overlapping with user's worktime schedule.");
-
-            return Ok(newWorktime);
+            return newWorktime == null ? BadRequest("Worktime you are trying to add is overlapping with user's worktime schedule.") : Ok(newWorktime);
         }
-        [HttpDelete("delete/{id}")]
-        public void Delete(Guid id)
+        [HttpDelete("delete/{worktimeId}")]
+        public void Delete(Guid worktimeId)
         {
-            _worktimesService.Delete(id);
+            _worktimesService.Delete(worktimeId);
         }
     }
 }

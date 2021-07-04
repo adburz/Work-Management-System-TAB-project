@@ -6,6 +6,6 @@ namespace WorkManagementSystemTAB.DTO.Request
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-        public string Email { get; set; }
+        public Guid UserId { get; set; }
     }
 }

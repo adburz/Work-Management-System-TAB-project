@@ -9,5 +9,6 @@ namespace WorkManagementSystemTAB.DTO.Response
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
+        public Guid WorktimeId { get; set; }
     }
 }

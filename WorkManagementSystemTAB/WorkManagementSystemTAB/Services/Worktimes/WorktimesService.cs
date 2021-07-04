@@ -20,9 +20,9 @@ namespace WorkManagementSystemTAB.Services.Worktimes
 
         public Worktime Add(WorktimeDTO entity)
         {
-            var userId = _usersRepository.FindUserByEmail(entity.Email).UserId;
+            var userId = _usersRepository.GetById(entity.UserId).UserId;
             var workSchedule = _worktimesRepository.GetWorktimesByUserId(userId);
-            var overlappedWorktimes = workSchedule.Where(x => (x.StartTime < entity.EndTime && entity.StartTime < x.EndTime)).ToList();
+            var overlappedWorktimes = workSchedule.Where(x => (x.StartTime <= entity.EndTime && entity.StartTime <= x.EndTime)).ToList();
 
             if(overlappedWorktimes.Any()) return null;
 
@@ -31,14 +31,13 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             return _worktimesRepository.Add(newWorktime);
         }
 
-        public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(string email)
+        public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(Guid userId)
         {
-            var userId = _usersRepository.FindUserByEmail(email).UserId;
-
             var worktimeSchedule = _worktimesRepository.GetWorktimesByUserId(userId).Select(x => new DTO.Response.WorktimeDTO()
             {
                 StartTime = x.StartTime,
-                EndTime = x.EndTime
+                EndTime = x.EndTime,
+                WorktimeId=x.WorktimeId 
             });
             return worktimeSchedule.Any() ? worktimeSchedule : null;
         }
