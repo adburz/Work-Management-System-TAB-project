@@ -15,6 +15,13 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
             return entity;
         }
 
+        public IEnumerable<Worktime> AddListOfWorktimes(IEnumerable<Worktime> worktimeList)
+        {
+            _context.Worktimes.AddRange(worktimeList);
+            this.Save();
+            return worktimeList;
+        }
+
         public void Delete(Guid id)
         {
             var worktimeToDelete = _context.Worktimes.FirstOrDefault(w => w.WorktimeId==id);
