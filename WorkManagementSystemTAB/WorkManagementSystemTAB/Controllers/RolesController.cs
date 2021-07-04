@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [Authorize]
     [ApiController]
     public class RolesController : ControllerBase
