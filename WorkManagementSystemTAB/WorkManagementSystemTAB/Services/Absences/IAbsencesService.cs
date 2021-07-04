@@ -11,11 +11,13 @@ namespace WorkManagementSystemTAB.Services.Absences
         public Absence Modify(Absence absence);
         public Absence Approve(Guid id);
         public bool IsAuthor(Absence absence, string email);
+        public bool IsAuthor(Guid userId, string email);
         public IEnumerable<Absence> GetAllActive();
-        public IEnumerable<Absence> GetAllWorkerAbsensces(Guid id);
-        public IEnumerable<Absence> GetAllActiveWorkerAbsences(Guid id);
+        public IEnumerable<Absence> GetAllWorkerAbsensces(Guid userId);
+        public IEnumerable<Absence> GetAllActiveWorkerAbsences(Guid userId);
         public IEnumerable<Absence> GetAllConfirmed();
-        public IEnumerable<Absence> GetAllConfirmedeWorkerAbsences(Guid id);
+        public IEnumerable<Absence> GetAllConfirmedeWorkerAbsences(Guid userId);
+        public IEnumerable<IEnumerable<WorktimeDTO>> FindReplacment(Guid absenceId);
 
     }
 }

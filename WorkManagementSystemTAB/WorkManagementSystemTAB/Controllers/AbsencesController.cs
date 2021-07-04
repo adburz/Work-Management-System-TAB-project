@@ -22,6 +22,9 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet]
         public IActionResult GetAbsences() 
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var absences = _absenceService.GetAll();
 
             return Ok(absences);
@@ -30,6 +33,9 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet("worker/{id}")]
         public IActionResult GetAllWorkerAbsences(Guid id)
         {
+            if (!_absenceService.IsAuthor(id, this.User.FindFirstValue("email")) && !IsManagerOrAbove())
+                return Unauthorized();
+
             var allWorkerAbsences = _absenceService.GetAllWorkerAbsensces(id);
 
             if (allWorkerAbsences == null)
@@ -41,12 +47,18 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet("active")]
         public IActionResult GetAllActiveAbsences()
         {
+            if (IsWorker())
+                return Unauthorized();
+
             return Ok(_absenceService.GetAllActive());
         }
 
         [HttpGet("active/worker/{id}")]
         public IActionResult GetAllActiveWorkerAbsences(Guid id) //active == not confirmed
         {
+            if (!_absenceService.IsAuthor(id, this.User.FindFirstValue("email")) && !IsManagerOrAbove())
+                return Unauthorized();
+
             var allActiveWorkerAbsences = _absenceService.GetAllActiveWorkerAbsences(id);
 
             if (allActiveWorkerAbsences == null)
@@ -58,12 +70,18 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet("confirmed")]
         public IActionResult GetAllConfirmedAbsences()
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             return Ok(_absenceService.GetAllConfirmed());
         }
 
         [HttpGet("confirmed/worker/{id}")]
         public IActionResult GetAllConfirmedWorkerAbsences(Guid id) //active == not confirmed
         {
+            if (!_absenceService.IsAuthor(id, this.User.FindFirstValue("email")) && !IsManagerOrAbove())
+                return Unauthorized();
+
             var allConfirmedWorkerAbsences = _absenceService.GetAllConfirmedeWorkerAbsences(id);
 
             if (allConfirmedWorkerAbsences == null)
@@ -103,7 +121,6 @@ namespace WorkManagementSystemTAB.Controllers
             if (!_absenceService.IsAuthor(absence, this.User.FindFirstValue("email")) && !IsManagerOrAbove())
                 return Unauthorized();
 
-
             var result = _absenceService.Modify(absence);
             if (result == null)
                 return NotFound();
@@ -129,7 +146,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
 
-        [HttpPost("approve")]
+        [HttpGet("approve/{id}")]
         public IActionResult ApproveAbsence(Guid id)
         {
             if (!IsManagerOrAbove())
@@ -143,6 +160,17 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(result);
         }
 
+        [HttpGet("find-replacement/{id}")]
+        public IActionResult FindReplacemnt(Guid id)
+        {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
 
+            var replacments = _absenceService.FindReplacment(id);
+            if (replacments == null)
+                return NotFound();
+
+            return Ok(replacments);
+        }
     }
 }
