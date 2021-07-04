@@ -8,7 +8,7 @@ using WorkManagementSystemTAB.Services.Absences;
 
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class AbsencesController : BaseAccessController

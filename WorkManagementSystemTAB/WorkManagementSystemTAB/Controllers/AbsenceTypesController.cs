@@ -11,7 +11,7 @@ using WorkManagementSystemTAB.Services.AbsenceTypes;
 
 namespace WorkManagementSystemTAB.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class AbsenceTypesController : BaseAccessController

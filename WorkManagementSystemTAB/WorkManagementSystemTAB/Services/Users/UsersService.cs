@@ -16,12 +16,10 @@ namespace WorkManagementSystemTAB.Services.Users
         {
             _userRepository = userRepository;
         }
-
-
         #region Methods
         public User AddUser(AddUserDTO user)
         {
-            if (_userRepository.FindUserByEmail(user.Email) != null)
+            if (_userRepository.GetUserByEmail(user.Email) != null)
             {
                 return null;
             }
