@@ -17,7 +17,6 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             _worktimesRepository = worktimesRepository;
             _usersRepository = usersRepository;
         }
-
         public Worktime Add(WorktimeDTO entity)
         {
             var userId = _usersRepository.GetById(entity.UserId).UserId;

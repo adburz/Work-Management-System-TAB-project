@@ -118,7 +118,7 @@ namespace WorkManagementSystemTAB.Controllers
 
             user.Password = EncriptPassword(user.Password);
 
-            var foundUser = _authService.FindUser(user);
+            var foundUser = _authService.GetUser(user);
 
             if (foundUser == null)
                 return NotFound();

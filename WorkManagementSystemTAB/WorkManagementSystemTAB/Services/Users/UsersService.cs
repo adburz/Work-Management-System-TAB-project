@@ -36,7 +36,11 @@ namespace WorkManagementSystemTAB.Services.Users
 
         public UserDTO FindUserByEmail(string email)
         {
-            var user = _userRepository.FindUserByEmail(email);
+            var user = _userRepository.GetUserByEmail(email);
+           
+            if (user == null)
+                return null;
+
             return new UserDTO()
             {
                 Email = user.Email,
@@ -51,6 +55,10 @@ namespace WorkManagementSystemTAB.Services.Users
         public UserDTO GetUser(Guid id)
         {
             var user = _userRepository.GetById(id);
+            
+            if (user == null)
+                return null;
+
             return new UserDTO()
             {
                 Email = user.Email,
@@ -75,6 +83,17 @@ namespace WorkManagementSystemTAB.Services.Users
                 VacationDaysCount = x.VacationDaysCount
             }
             ).ToList();
+        }
+
+
+        public User Modify(User user)
+        {
+            return _userRepository.Modify(user);
+        }
+
+        public User CutDaysOff(Guid id, int daysToCut)
+        {
+            return _userRepository.CutDaysOff(id, daysToCut);
         }
         #endregion
     }

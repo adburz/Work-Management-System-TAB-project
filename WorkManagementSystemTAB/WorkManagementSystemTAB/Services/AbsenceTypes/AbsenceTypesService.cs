@@ -6,10 +6,10 @@ using WorkManagementSystemTAB.Repository.AbsenceTypes;
 
 namespace WorkManagementSystemTAB.Services.AbsenceTypes
 {
-    public class AbsencesTypesService : IAbsenceTypesService
+    public class AbsenceTypesService : IAbsenceTypesService
     {
         private readonly IAbsenceTypesRepository _absencesRepository;
-        public AbsencesTypesService(IAbsenceTypesRepository absencesRepository) {
+        public AbsenceTypesService(IAbsenceTypesRepository absencesRepository) {
             _absencesRepository = absencesRepository;
         }
 
@@ -26,19 +26,29 @@ namespace WorkManagementSystemTAB.Services.AbsenceTypes
             
         }
 
+        public AbsenceType Modify(AbsenceType absenceType)
+        {
+            return _absencesRepository.Modify(absenceType);
+
+        }
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            _absencesRepository.Delete(id);
         }
 
         public IEnumerable<AbsenceType> GetAll()
         {
-            throw new NotImplementedException();
+            return _absencesRepository.GetAll();
         }
 
         public AbsenceType GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _absencesRepository.GetById(id);
+        }
+
+        public AbsenceType GetByName(string name)
+        {
+            return _absencesRepository.GetByName(name);
         }
     }
 }
