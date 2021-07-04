@@ -12,7 +12,7 @@ namespace WorkManagementSystemTAB.Services.Users
         public IEnumerable<UserDTO> GetUsers();
         public UserDTO GetUser(Guid id);
         public User AddUser(AddUserDTO user);
-        public UserDTO FindUserByEmail(string email);
+        public UserDTO GetUserByEmail(string email);
         public void DeleteUser(Guid id);
         public User Modify(User user);
         public User CutDaysOff(Guid id, int daysToCut);

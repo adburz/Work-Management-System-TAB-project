@@ -21,7 +21,7 @@ namespace WorkManagementSystemTAB.Services.Users
         #region Methods
         public User AddUser(AddUserDTO user)
         {
-            if (_userRepository.FindUserByEmail(user.Email) != null)
+            if (_userRepository.GetUserByEmail(user.Email) != null)
             {
                 return null;
             }
@@ -34,7 +34,7 @@ namespace WorkManagementSystemTAB.Services.Users
             _userRepository.Delete(id);
         }
 
-        public UserDTO FindUserByEmail(string email)
+        public UserDTO GetUserByEmail(string email)
         {
             var user = _userRepository.GetUserByEmail(email);
            

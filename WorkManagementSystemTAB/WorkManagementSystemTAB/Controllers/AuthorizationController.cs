@@ -78,7 +78,7 @@ namespace WorkManagementSystemTAB.Controllers
         {
             if (ModelState.IsValid)
             {
-                var existingUser = _usersService.FindUserByEmail(user.Email);
+                var existingUser = _usersService.GetUserByEmail(user.Email);
                 if (existingUser != null)
                 {
                     return BadRequest(new RegistrationResponse()
