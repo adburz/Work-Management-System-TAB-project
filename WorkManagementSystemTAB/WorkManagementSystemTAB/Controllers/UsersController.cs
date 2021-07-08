@@ -45,7 +45,7 @@ namespace WorkManagementSystemTAB.Controllers
             return NotFound($"User with id {id} was not found.");
         }
 
-        [HttpPost("addUser")]
+        [HttpPost]
         public IActionResult AddUser(AddUserDTO user)
         {
             var result = _usersService.AddUser(user);

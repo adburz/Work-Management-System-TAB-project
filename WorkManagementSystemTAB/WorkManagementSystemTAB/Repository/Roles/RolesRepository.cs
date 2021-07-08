@@ -56,6 +56,20 @@ namespace WorkManagementSystemTAB.Repository.Roles
         {
             return _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId)).AccessLevel.ToString();
         }
-        
+
+        public Role ModifyRole(Role role)
+        {
+            var foundRole = GetById(role.RoleId);
+
+            if (foundRole == null)
+                return null;
+
+            foundRole.Name = role.Name;
+            foundRole.AccessLevel = role.AccessLevel;
+
+            Save();
+
+            return foundRole;
+        }
     }
 }

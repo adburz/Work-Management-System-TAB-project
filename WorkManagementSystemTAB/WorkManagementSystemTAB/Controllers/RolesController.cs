@@ -5,6 +5,8 @@ using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using WorkManagementSystemTAB.DTO.Request;
+using WorkManagementSystemTAB.Models;
+using System.Collections.Generic;
 
 namespace WorkManagementSystemTAB.Controllers
 {
@@ -29,11 +31,17 @@ namespace WorkManagementSystemTAB.Controllers
             _rolesService.Delete(roleId);
             return Ok();
         }
-        [HttpPost]
+        [HttpPost("add")]
         public IActionResult Add(RoleDTO role)
         {
             var newRole = _rolesService.Add(role);
             return newRole == null ? BadRequest("Role already exists.") : Ok(newRole);
+        }
+        [HttpPut]
+        public IActionResult UpdateRole(Role role)
+        {
+            var updatedRole = _rolesService.UpdateRole(role);
+            return updatedRole == null ? BadRequest("Role could not be updated.") : Ok(updatedRole);
         }
     }
 }
