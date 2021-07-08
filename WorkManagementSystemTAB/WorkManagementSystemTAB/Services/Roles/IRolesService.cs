@@ -7,5 +7,6 @@ namespace WorkManagementSystemTAB.Services.Roles
     public interface IRolesService : IService<Role, Guid,RoleDTO>
     {
         public Guid GetRoleIdByName(string roleName);
+        Role UpdateRole(Role role);
     }
 }

@@ -12,17 +12,19 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public Role Add(Role entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public Role AddAsync(Role entity)
-        {
-            throw new NotImplementedException();
+            _context.Add(entity);
+            this.Save();
+            return entity;
         }
 
         public void Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var roleToDelete = GetById(id);
+            if(roleToDelete!=null)
+            {
+                _context.Remove(roleToDelete);
+            }
+            this.Save();         
         }
 
         public IEnumerable<Role> GetAll()
@@ -32,7 +34,7 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public Role GetById(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Roles.FirstOrDefault(x => x.RoleId == id);
         }
 
         public Role GetRoleByName(string name)
@@ -54,6 +56,20 @@ namespace WorkManagementSystemTAB.Repository.Roles
         {
             return _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId)).AccessLevel.ToString();
         }
-        
+
+        public Role ModifyRole(Role role)
+        {
+            var foundRole = GetById(role.RoleId);
+
+            if (foundRole == null)
+                return null;
+
+            foundRole.Name = role.Name;
+            foundRole.AccessLevel = role.AccessLevel;
+
+            Save();
+
+            return foundRole;
+        }
     }
 }

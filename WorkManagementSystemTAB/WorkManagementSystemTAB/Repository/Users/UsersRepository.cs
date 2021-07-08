@@ -17,6 +17,7 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             var userToDelete = _context.Users.FirstOrDefault(u => u.UserId == id);
             if (userToDelete != null)
             { _context.Remove(userToDelete); }
+            this.Save();
         }
 
         public IEnumerable<User> GetAll()

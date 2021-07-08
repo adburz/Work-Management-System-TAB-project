@@ -12,5 +12,7 @@ namespace WorkManagementSystemTAB.Repository.Roles
         public string GetRoleNameById(Guid id);
 
         public string GetAccessLvlById(Guid id);
+
+        public Role ModifyRole(Role role);
     }
 }
