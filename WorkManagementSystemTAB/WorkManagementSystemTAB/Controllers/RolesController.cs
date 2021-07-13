@@ -13,35 +13,77 @@ namespace WorkManagementSystemTAB.Controllers
     [Route("[controller]")]
     [Authorize]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class RolesController : BaseAccessController
     {
         private readonly IRolesService _rolesService;
         public RolesController(IRolesService rolesService) {
             _rolesService = rolesService;
         }
 
-        [HttpGet("getAll")]
-        public IActionResult GetRoles() {
+        [HttpGet]
+        public IActionResult GetRoles() 
+        {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var roles = _rolesService.GetAll();
+            
+            if (roles == null)
+                return NotFound();
+
             return Ok(roles);
         }
-        [HttpDelete]
-        public IActionResult Delete(Guid roleId)
+
+        [HttpGet("{id}")]
+        public IActionResult GetRole(Guid id)
         {
-            _rolesService.Delete(roleId);
-            return Ok();
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
+            var result = _rolesService.GetById(id);
+
+            if (result == null)
+                return NotFound();
+
+            return Ok(result);
         }
-        [HttpPost("add")]
+
+        [HttpPost]
         public IActionResult Add(RoleDTO role)
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var newRole = _rolesService.Add(role);
+
             return newRole == null ? BadRequest("Role already exists.") : Ok(newRole);
         }
+
         [HttpPut]
         public IActionResult UpdateRole(Role role)
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var updatedRole = _rolesService.UpdateRole(role);
+            
             return updatedRole == null ? BadRequest("Role could not be updated.") : Ok(updatedRole);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
+            var result = _rolesService.GetById(id);
+
+            if (result == null)
+                return NotFound();
+
+            _rolesService.Delete(id);
+
+            return Ok();
         }
     }
 }

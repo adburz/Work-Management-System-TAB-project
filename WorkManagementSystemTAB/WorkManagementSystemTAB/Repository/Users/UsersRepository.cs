@@ -7,7 +7,7 @@ using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.UserResitory
 {
-    public class UsersRepository :BaseRepository, IUsersRepository
+    public class UsersRepository : BaseRepository, IUsersRepository
     {
 
         public UsersRepository(TABWorkManagementSystemContext context) : base(context) { }
@@ -39,21 +39,31 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
 
         public User GetUserByEmail(string email)
         {
-            return  _context.Users.FirstOrDefault(x => x.Email == email);
+            return _context.Users.FirstOrDefault(x => x.Email == email);
         }
-        
-        public User Modify(User user)
-        {
 
+        public User Update(User user)
+        {
             var foundUser = _context.Users.FirstOrDefault(x => x.UserId == user.UserId);
-            
+
             if (foundUser == null)
                 return null;
 
-            foundUser.Password = user.Password;
-            foundUser.Email = user.Email;
-            foundUser.FirstName = user.FirstName;
-            foundUser.LastName = user.LastName;
+            if (!string.IsNullOrEmpty(user.Password))
+                foundUser.Password = user.Password;
+
+            if (!string.IsNullOrEmpty(user.Email))
+                foundUser.Email = user.Email;
+
+            if (!string.IsNullOrEmpty(user.FirstName))
+                foundUser.FirstName = user.FirstName;
+
+            if (!string.IsNullOrEmpty(user.LastName))
+                foundUser.LastName = user.LastName;
+
+            if (user.RoleId != Guid.Empty)
+                foundUser.RoleId = user.RoleId;
+
             foundUser.VacationDaysCount = user.VacationDaysCount;
 
             Save();

@@ -13,7 +13,7 @@ namespace WorkManagementSystemTAB.Repository.Absences
         void Delete(Guid id);
         IEnumerable<Absence> GetAll();
         Absence GetById(Guid id);
-        public Absence Modify(Absence absence);
+        public Absence Update(Absence absence);
         public Absence Approve(Guid id);
     }
 }

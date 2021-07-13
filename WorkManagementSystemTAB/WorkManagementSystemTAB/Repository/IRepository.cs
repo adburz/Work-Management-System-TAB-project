@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace WorkManagementSystemTAB.Repository
 {
@@ -10,6 +9,5 @@ namespace WorkManagementSystemTAB.Repository
         public T1 Add(T1 entity);
         public void Delete(T2 id);
         public void Save();
-        
     }
 }

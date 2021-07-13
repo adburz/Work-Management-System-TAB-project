@@ -9,7 +9,7 @@ namespace WorkManagementSystemTAB.Services.Authorization
 {
     public interface IAuthService
     {
-
         User GetUser(UserAuthorizationDTO user);
+
     }
 }

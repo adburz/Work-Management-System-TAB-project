@@ -8,7 +8,7 @@ namespace WorkManagementSystemTAB.Services.Absences
 {
     public interface IAbsencesService : IService<Absence, Guid,AbsenceDTO>
     {
-        public Absence Modify(Absence absence);
+        public Absence Update(Absence absence);
         public Absence Approve(Guid id);
         public bool IsAuthor(Absence absence, string email);
         public bool IsAuthor(Guid userId, string email);

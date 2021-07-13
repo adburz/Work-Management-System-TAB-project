@@ -45,5 +45,30 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
                                      .Where(x => x.UserId == userId)
                                      .ToList();                 
         }
+
+        public Worktime UpdateWorktime(Worktime worktime)
+        {
+
+            if (worktime == null)
+                return null;
+
+            var foundWorktime = _context.Worktimes.FirstOrDefault(x => x.WorktimeId == worktime.WorktimeId);
+
+            if (foundWorktime == null)
+                return null;
+
+            if (worktime.StartTime != DateTime.MinValue)
+                foundWorktime.StartTime = worktime.StartTime;
+
+            if (worktime.EndTime != DateTime.MinValue)
+                foundWorktime.EndTime = worktime.EndTime;
+
+            if (worktime.UserId != Guid.Empty)
+                foundWorktime.UserId = worktime.UserId;
+
+            Save();
+
+            return foundWorktime;
+        }
     }
 }

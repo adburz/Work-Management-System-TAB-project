@@ -49,9 +49,9 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public string GetRoleNameById(Guid id)
         {
-
             return _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId))?.Name;
         }
+
         public string GetAccessLvlById(Guid id)
         {
             return _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId)).AccessLevel.ToString();

@@ -25,7 +25,7 @@ namespace WorkManagementSystemTAB.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class AuthorizationController : ControllerBase
+    public class AuthorizationController : BaseAccessController
     {
         
         private readonly IUsersService _usersService;

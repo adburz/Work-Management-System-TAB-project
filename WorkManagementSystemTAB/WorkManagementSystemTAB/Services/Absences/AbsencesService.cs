@@ -56,9 +56,9 @@ namespace WorkManagementSystemTAB.Services.Absences
             return newAbssence;
         }
 
-        public Absence Modify(Absence absence)
+        public Absence Update(Absence absence)
         {
-            return _absencesRepository.Modify(absence);
+            return _absencesRepository.Update(absence);
         }
 
         public Absence Approve(Guid id)
@@ -112,7 +112,7 @@ namespace WorkManagementSystemTAB.Services.Absences
         {
 
             var user = _usersRepository.GetUserByEmail(email);
-            if (user == null)
+            if (user == null || absence == null)
                 return false;
 
             return user.UserId == absence.UserId;

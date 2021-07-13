@@ -13,35 +13,43 @@ namespace WorkManagementSystemTAB.Controllers
     [Route("[controller]")]
     [Authorize]
     [ApiController]
-    public class UsersController : ControllerBase
+    public class UsersController : BaseAccessController
     {
         private readonly IUsersService _usersService;
 
         public UsersController(IUsersService usersService)
         {
-            this._usersService = usersService;
+            _usersService = usersService;
         }
 
         [HttpGet]
         public IActionResult GetUsers()
         {
-            var xd = this.User.FindFirstValue(Strings.AccessLevel);
-
-            if (xd == AccessLevelEnum.Worker.ToString())
-                return BadRequest();
+            if (!IsManagerOrAbove())
+                return Unauthorized();
 
             var users = _usersService.GetUsers();
+
+            if(users == null)
+            {
+                return NotFound();
+            }
             return Ok(users);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetUser(Guid id)
         {
-            var users = _usersService.GetUser(id);
+            if (!_usersService.IsAuthor(id, LoggedUserEmail) && !IsManagerOrAbove())
+                return Unauthorized();
+
+            var users = _usersService.GetById(id);
+
             if (users != null)
             {
                 return Ok(users);
             }
+
             return NotFound($"User with id {id} was not found.");
         }
 
@@ -53,7 +61,48 @@ namespace WorkManagementSystemTAB.Controllers
             {
                 return BadRequest($"User with email: {user.Email} already exists.");
             }
+
             return Ok(result);
         }
+
+        [HttpPut]
+        public IActionResult UpdateUser(User user)
+        {
+            if (!_usersService.IsAuthor(user.UserId, LoggedUserEmail) && !IsManagerOrAbove())
+                return Unauthorized();
+
+            if(IsWorker())
+            {
+                //worker cant change roles
+                user.RoleId = Guid.Empty;
+            }
+
+            var result = _usersService.Update(user);
+
+            if(result == null)
+            {
+                return NotFound(result);
+            }
+
+            return Ok(result);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteUser(Guid id)
+        {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
+            var result = _usersService.GetById(id);
+
+            if (result == null)
+                return NotFound();
+
+            _usersService.DeleteUser(id);
+
+            return Ok(result);
+        }
+
+
     }
 }

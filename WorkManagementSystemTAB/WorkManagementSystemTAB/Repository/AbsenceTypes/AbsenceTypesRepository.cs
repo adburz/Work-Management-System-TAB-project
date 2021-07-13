@@ -33,7 +33,7 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
             }
         }
 
-        public AbsenceType Modify(AbsenceType absenceType)
+        public AbsenceType Update(AbsenceType absenceType)
         {
             var foundAbsenceType = _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == absenceType.AbsenceTypeId);
 

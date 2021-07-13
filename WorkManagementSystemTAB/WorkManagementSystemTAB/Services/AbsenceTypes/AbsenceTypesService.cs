@@ -26,9 +26,9 @@ namespace WorkManagementSystemTAB.Services.AbsenceTypes
             
         }
 
-        public AbsenceType Modify(AbsenceType absenceType)
+        public AbsenceType Update(AbsenceType absenceType)
         {
-            return _absencesRepository.Modify(absenceType);
+            return _absencesRepository.Update(absenceType);
 
         }
         public void Delete(Guid id)

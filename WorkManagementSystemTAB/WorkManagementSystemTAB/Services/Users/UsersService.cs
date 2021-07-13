@@ -50,7 +50,7 @@ namespace WorkManagementSystemTAB.Services.Users
             };
         }
 
-        public UserDTO GetUser(Guid id)
+        public UserDTO GetById(Guid id)
         {
             var user = _userRepository.GetById(id);
             
@@ -84,14 +84,23 @@ namespace WorkManagementSystemTAB.Services.Users
         }
 
 
-        public User Modify(User user)
+        public User Update(User user)
         {
-            return _userRepository.Modify(user);
+            return _userRepository.Update(user);
         }
 
         public User CutDaysOff(Guid id, int daysToCut)
         {
             return _userRepository.CutDaysOff(id, daysToCut);
+        }
+
+        public bool IsAuthor(Guid userId, string email)
+        {
+            var user = _userRepository.GetUserByEmail(email);
+            if (user == null)
+                return false;
+
+            return user.UserId == userId;
         }
         #endregion
     }

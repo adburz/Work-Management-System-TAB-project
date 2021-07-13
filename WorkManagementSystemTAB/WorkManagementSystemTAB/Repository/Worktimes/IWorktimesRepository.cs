@@ -8,5 +8,6 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
     {
         public IEnumerable<Worktime> GetWorktimesByUserId(Guid userId);
         public IEnumerable<Worktime> AddListOfWorktimes(IEnumerable<Worktime> worktimeList);
+        public Worktime UpdateWorktime(Worktime worktime);
     }
 }

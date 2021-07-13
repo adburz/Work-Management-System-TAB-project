@@ -26,6 +26,9 @@ namespace WorkManagementSystemTAB.Controllers
         [AllowAnonymous]
         public IActionResult GetAbsenceTypes()
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var absenceTypes = _absenceTypesService.GetAll();
 
             if (absenceTypes == null)
@@ -35,9 +38,11 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpGet("id/{id}")]
-        [AllowAnonymous]
         public IActionResult GetAbsenceTypeById(Guid id)
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var result = _absenceTypesService.GetById(id);
 
             if (result == null)
@@ -47,19 +52,18 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpGet("name/{name}")]
-        [AllowAnonymous]
         public IActionResult GetAbsenceTypeByName(string name)
         {
+            if (!IsManagerOrAbove())
+                return Unauthorized();
+
             var result = _absenceTypesService.GetByName(name);
 
             if (result == null)
                 return NotFound();
 
             return Ok(result);
-
         }
-
-
 
         [HttpPost]
         public IActionResult AddAbsenceType([FromBody] AbsenceTypeDTO absenceTypeRequest)
@@ -72,9 +76,7 @@ namespace WorkManagementSystemTAB.Controllers
                 return NotFound();
 
             return Ok(result);
-
         }
-
 
         [HttpPut]
         public IActionResult ModifyAbsenceType([FromBody] AbsenceType absenceTypeRequest)
@@ -82,13 +84,11 @@ namespace WorkManagementSystemTAB.Controllers
             if (!IsManagerOrAbove())
                 return Unauthorized();
 
-            var result = _absenceTypesService.Modify(absenceTypeRequest);
+            var result = _absenceTypesService.Update(absenceTypeRequest);
             if (result == null)
                 return NotFound();
 
-
             return Ok(result);
-
         }
 
 
@@ -98,10 +98,14 @@ namespace WorkManagementSystemTAB.Controllers
             if (!IsManagerOrAbove())
                 return Unauthorized();
 
+            var result = _absenceTypesService.GetById(id);
+
+            if (result == null)
+                return NotFound();
+
             _absenceTypesService.Delete(id);
 
             return Ok();
-
         }
 
     }

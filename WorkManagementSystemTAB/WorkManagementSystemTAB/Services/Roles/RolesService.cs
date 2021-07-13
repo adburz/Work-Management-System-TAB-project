@@ -27,7 +27,7 @@ namespace WorkManagementSystemTAB.Services.Roles
         }
 
         public Role GetById(Guid id) {
-            throw new NotImplementedException();
+            return _rolesRepository.GetById(id);
         }
 
         public Guid GetRoleIdByName(string roleName)

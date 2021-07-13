@@ -59,5 +59,7 @@ namespace WorkManagementSystemTAB.Controllers
 
             return false;
         }
+
+        protected string LoggedUserEmail => this.User.FindFirstValue("email");
     }
 }

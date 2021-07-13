@@ -46,7 +46,7 @@ namespace WorkManagementSystemTAB.Repository.Absences
             return _context.Absences.FirstOrDefault(x => x.AbsenceId == id);
         }
 
-        public Absence Modify(Absence absence)
+        public Absence Update(Absence absence)
         {
             var foundAbsence = GetById(absence.AbsenceId);
 
