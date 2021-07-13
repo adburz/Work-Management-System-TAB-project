@@ -7,6 +7,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.Models;
@@ -39,8 +42,8 @@ namespace WorkManagementSystemTAB
         public void ConfigureServices(IServiceCollection services)
         {
 
+            var x2 = "ss";
 
-            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -70,9 +73,13 @@ namespace WorkManagementSystemTAB
                   }
                 }
                 );
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+                c.IncludeXmlComments(xmlPath);
             });
 
-
+           
             //DbContext
             services.AddDbContext<TABWorkManagementSystemContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MainDbConnection")));
             //JWT
@@ -123,11 +130,14 @@ namespace WorkManagementSystemTAB
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkManagementSystemTAB v1"); c.RoutePrefix = string.Empty; });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkManagementSystemTAB v1"));
+                //app.UseSwagger();
+                //app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "WorkManagementSystemTAB v1"));
             }
 
             app.UseHttpsRedirection();
@@ -148,6 +158,14 @@ namespace WorkManagementSystemTAB
             {
                 endpoints.MapControllers();
             });
+        }
+        private static void AddSwaggerXml(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions c)
+        {
+            var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
+            foreach (var xmlFile in xmlFiles)
+            {
+                c.IncludeXmlComments(xmlFile);
+            }
         }
     }
 }

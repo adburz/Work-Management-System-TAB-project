@@ -7,19 +7,27 @@ using WorkManagementSystemTAB.Services.Absences;
 
 namespace WorkManagementSystemTAB.Controllers
 {
+    
     [Route("[controller]")]
     [ApiController]
     [Authorize]
     public class AbsencesController : BaseAccessController
     {
         private readonly IAbsencesService _absenceService;
-        public AbsencesController(IAbsencesService absenceService) {
+        public AbsencesController(IAbsencesService absenceService)
+        {
             _absenceService = absenceService;
         }
 
-        
+
+        /// <summary>
+        /// tutej mozna dac opis
+        /// </summary>
+        /// <remarks>
+        /// a tu cos innego
+        /// </remarks>
         [HttpGet]
-        public IActionResult GetAbsences() 
+        public IActionResult GetAbsences()
         {
             if (!IsManagerOrAbove())
                 return Unauthorized();
@@ -94,7 +102,7 @@ namespace WorkManagementSystemTAB.Controllers
         public IActionResult GetAbsenceById(Guid id)
         {
             var absence = _absenceService.GetById(id);
-            
+
             if (absence == null)
                 return NotFound();
 
@@ -137,11 +145,11 @@ namespace WorkManagementSystemTAB.Controllers
             var newAbsence = _absenceService.Add(absenceDTO);
 
             if (newAbsence == null)
-                return BadRequest( new { Success = false, Error = "There was an error (multiple requests)" });
+                return BadRequest(new { Success = false, Error = "There was an error (multiple requests)" });
 
             return Ok(newAbsence);
         }
-        
+
         [HttpPut]
         public IActionResult UpdateAbsence(Absence absence)
         {
