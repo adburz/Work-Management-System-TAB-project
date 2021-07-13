@@ -22,7 +22,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             if (workSchedule == null || newWorktime == null)
                 return false;
 
-            return workSchedule.ToList().Exists(x => (x.StartTime <= newWorktime.EndTime && newWorktime.StartTime <= x.EndTime))
+            return workSchedule.ToList().Exists(x => x.StartTime <= newWorktime.EndTime && newWorktime.StartTime <= x.EndTime);
                        
         }
         public Worktime Add(WorktimeDTO entity)
