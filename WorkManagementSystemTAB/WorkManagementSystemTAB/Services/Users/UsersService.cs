@@ -6,15 +6,18 @@ using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.DTO.Request;
+using WorkManagementSystemTAB.Repository.Roles;
 
 namespace WorkManagementSystemTAB.Services.Users
 {
     public class UsersService : IUsersService
     {
         private readonly IUsersRepository _userRepository;
-        public UsersService(IUsersRepository userRepository)
+        private readonly IRolesRepository _rolesRepository;
+        public UsersService(IUsersRepository userRepository, IRolesRepository rolesRepository)
         {
             _userRepository = userRepository;
+            _rolesRepository = rolesRepository;
         }
         #region Methods
         public User AddUser(AddUserDTO user)
@@ -23,7 +26,16 @@ namespace WorkManagementSystemTAB.Services.Users
             {
                 return null;
             }
-            var newUser = new User() { Email = user.Email, Password = user.Password, FirstName = user.FirstName, LastName = user.LastName };
+
+            var newUser = new User() 
+            { 
+                Email = user.Email,
+                Password = user.Password,
+                FirstName = user.FirstName,
+                LastName = user.LastName ,
+                RoleId = _rolesRepository.GetRoleIdByName(Strings.UnAssigned)
+            };
+
             return _userRepository.Add(newUser);
         }
 
@@ -101,6 +113,14 @@ namespace WorkManagementSystemTAB.Services.Users
                 return false;
 
             return user.UserId == userId;
+        }
+
+        public User GetFullUserByEmail(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+                return null;
+
+            return _userRepository.GetUserByEmail(email);
         }
         #endregion
     }

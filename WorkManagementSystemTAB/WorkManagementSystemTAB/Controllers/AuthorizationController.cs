@@ -1,22 +1,15 @@
-﻿
-
-using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using System.Text;
-using System.Threading.Tasks;
 using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.Models;
-using WorkManagementSystemTAB.Repository.Roles;
-using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
@@ -27,26 +20,22 @@ namespace WorkManagementSystemTAB.Controllers
     [ApiController]
     public class AuthorizationController : BaseAccessController
     {
-        
-        private readonly IUsersService _usersService;
-        private readonly IUsersRepository _usersRepository;
-        private readonly IRolesRepository _rolesRepository;
 
+        private readonly IUsersService _usersService;
+        private readonly IRolesService _rolesService;
         private readonly IAuthService _authService;
-        
+
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
-            IUsersService usersService, IRolesRepository rolesRepository, IAuthService authService, IUsersRepository usersRepository)
+            IRolesService rolesService, IAuthService authService, IUsersService usersService)
         {
-            _usersService = usersService;
-
-            _rolesRepository = rolesRepository;
+            _rolesService = rolesService;
 
             _jwtConfig = optionsMonitor.CurrentValue;
 
             _authService = authService;
 
-            _usersRepository = usersRepository;
+            _usersService = usersService;
         }
 
         private string GenerateJwtToken(User user)
@@ -61,7 +50,7 @@ namespace WorkManagementSystemTAB.Controllers
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                    new Claim(Strings.AccessLevel, _rolesRepository.GetAccessLvlById(user.RoleId))
+                    new Claim(Strings.AccessLevel,_rolesService.GetAccessLvlById(user.RoleId))
                 }),
                 Expires = DateTime.UtcNow.AddMinutes(30),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
@@ -87,19 +76,24 @@ namespace WorkManagementSystemTAB.Controllers
                         Success = false
                     });
                 }
-                var newUser = new User() { Email = user.Email, Password = EncriptPassword(user.Password), 
-                    RoleId = _rolesRepository.GetRoleIdByName(user.RoleName) };
 
-                _usersRepository.Add(newUser);
+                var result = _usersService.AddUser(new AddUserDTO { Email = user.Email, FirstName = user.FirstName, LastName = user.LastName, Password = EncriptPassword(user.Password) });
 
-                var jwtToken = GenerateJwtToken(newUser);
+                if (result == null)
+                    return BadRequest();
+
+                var jwtToken = GenerateJwtToken(new User()
+                {
+                    Email = user.Email,
+                    Password = EncriptPassword(user.Password),
+                    RoleId = _rolesService.GetRoleIdByName(Strings.UnAssigned)
+                });
                 return Ok(new RegistrationResponse()
                 {
                     Success = true,
                     Token = jwtToken
                 });
             }
-
 
             return BadRequest(new RegistrationResponse()
             {
@@ -109,7 +103,6 @@ namespace WorkManagementSystemTAB.Controllers
                 },
                 Success = false
             });
-
         }
 
         [HttpPost("login")]
@@ -118,8 +111,8 @@ namespace WorkManagementSystemTAB.Controllers
 
             user.Password = EncriptPassword(user.Password);
 
-            var foundUser = _authService.GetUser(user);
-
+            var foundUser = _usersService.GetFullUserByEmail(user.Email);
+            
             if (foundUser == null)
                 return NotFound();
 

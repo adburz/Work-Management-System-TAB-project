@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using WorkManagementSystemTAB.DTO.Request;
-using WorkManagementSystemTAB.DTO.Response;
 
 using WorkManagementSystemTAB.Models;
 

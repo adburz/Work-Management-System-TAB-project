@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using WorkManagementSystemTAB.DTO.Request;
-using WorkManagementSystemTAB.Models;
+﻿using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Authorization
 {
@@ -12,10 +7,6 @@ namespace WorkManagementSystemTAB.Repository.Authorization
 
         public AuthorizationRepository(TABWorkManagementSystemContext context) : base(context) { }
 
-        public User GetUserByEmail(string email)
-        {
-            var foundUser = _context.Users.FirstOrDefault(x=> x.Email == email);
-            return foundUser;
-        }
+        
     }
 }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences
@@ -10,7 +8,7 @@ namespace WorkManagementSystemTAB.Repository.Absences
     public class AbsencesRepository : BaseRepository, IAbsencesRepository
     {
 
-        public AbsencesRepository(TABWorkManagementSystemContext context) :base(context) {}
+        public AbsencesRepository(TABWorkManagementSystemContext context) : base(context) { }
 
         public Absence Add(Absence absence)
         {
@@ -24,12 +22,12 @@ namespace WorkManagementSystemTAB.Repository.Absences
 
             return absence;
         }
-        
+
         public void Delete(Guid id)
         {
             var foundAbsence = GetById(id);
-            
-            if(foundAbsence != null)
+
+            if (foundAbsence != null)
             {
                 _context.Absences.Remove(foundAbsence);
                 Save();
@@ -53,16 +51,22 @@ namespace WorkManagementSystemTAB.Repository.Absences
             if (foundAbsence == null)
                 return null;
 
-            foundAbsence.AbsenceTypeId = absence.AbsenceTypeId;
-            foundAbsence.Confirmed = absence.Confirmed;
-            foundAbsence.StartDate = absence.StartDate;
-            foundAbsence.EndDate = absence.EndDate;
-            foundAbsence.UserId = absence.UserId;
+            if (absence.AbsenceTypeId != Guid.Empty)
+                foundAbsence.AbsenceTypeId = absence.AbsenceTypeId;
 
+            if (absence.StartDate != DateTime.MinValue)
+                foundAbsence.StartDate = absence.StartDate;
+
+            if (absence.EndDate != DateTime.MinValue)
+                foundAbsence.EndDate = absence.EndDate;
+
+            if (absence.UserId != Guid.Empty)
+                foundAbsence.UserId = absence.UserId;
+
+            foundAbsence.Confirmed = absence.Confirmed;
             Save();
 
             return foundAbsence;
-
         }
 
         public Absence Approve(Guid id)

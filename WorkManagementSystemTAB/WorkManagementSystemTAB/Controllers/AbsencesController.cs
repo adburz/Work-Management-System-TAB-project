@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Security.Claims;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Services.Absences;

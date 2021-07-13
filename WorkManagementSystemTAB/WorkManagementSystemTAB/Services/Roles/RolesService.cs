@@ -39,5 +39,10 @@ namespace WorkManagementSystemTAB.Services.Roles
         {
             return _rolesRepository.ModifyRole(role);
         }
+
+        public string GetAccessLvlById(Guid id)
+        {
+            return _rolesRepository.GetAccessLvlById(id);
+        }
     }
 }

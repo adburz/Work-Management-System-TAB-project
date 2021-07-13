@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.AbsenceTypes
@@ -41,7 +40,10 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
                 return null;
 
             foundAbsenceType.IfShorted = absenceType.IfShorted;
-            foundAbsenceType.Name = absenceType.Name;
+
+            if (!string.IsNullOrEmpty(absenceType.Name))
+                foundAbsenceType.Name = absenceType.Name;
+
             Save();
 
             return foundAbsenceType;
@@ -56,7 +58,7 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
         {
             return _context.AbsenceTypes.FirstOrDefault(x => x.AbsenceTypeId == id);
         }
-        
+
         public AbsenceType GetByName(string name)
         {
             return _context.AbsenceTypes.FirstOrDefault(x => x.Name == name);

@@ -8,5 +8,6 @@ namespace WorkManagementSystemTAB.Services.Roles
     {
         public Guid GetRoleIdByName(string roleName);
         Role UpdateRole(Role role);
+        public string GetAccessLvlById(Guid id);
     }
 }

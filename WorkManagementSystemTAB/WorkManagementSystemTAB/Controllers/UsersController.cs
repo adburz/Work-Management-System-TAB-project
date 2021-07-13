@@ -1,11 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
 using System;
-using System.Security.Claims;
 using WorkManagementSystemTAB.Models;
 using WorkManagementSystemTAB.Services.Users;
-using System.Linq;
 using WorkManagementSystemTAB.DTO.Request;
 
 namespace WorkManagementSystemTAB.Controllers
