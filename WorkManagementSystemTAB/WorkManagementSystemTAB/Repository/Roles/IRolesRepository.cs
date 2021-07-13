@@ -13,6 +13,6 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public string GetAccessLvlById(Guid id);
 
-        public Role ModifyRole(Role role);
+        public Role UpdateRole(Role role);
     }
 }

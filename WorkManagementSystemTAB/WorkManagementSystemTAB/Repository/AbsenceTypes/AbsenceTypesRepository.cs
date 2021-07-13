@@ -39,13 +39,12 @@ namespace WorkManagementSystemTAB.Repository.AbsenceTypes
             if (foundAbsenceType == null)
                 return null;
 
-            foundAbsenceType.IfShorted = absenceType.IfShorted;
-
             if (!string.IsNullOrEmpty(absenceType.Name))
                 foundAbsenceType.Name = absenceType.Name;
 
-            Save();
+            foundAbsenceType.IfShorted = absenceType.IfShorted;
 
+            Save();
             return foundAbsenceType;
         }
 

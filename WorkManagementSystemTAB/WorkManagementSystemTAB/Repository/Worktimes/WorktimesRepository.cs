@@ -48,7 +48,6 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
 
         public Worktime UpdateWorktime(Worktime worktime)
         {
-
             if (worktime == null)
                 return null;
 
@@ -67,7 +66,6 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
                 foundWorktime.UserId = worktime.UserId;
 
             Save();
-
             return foundWorktime;
         }
     }

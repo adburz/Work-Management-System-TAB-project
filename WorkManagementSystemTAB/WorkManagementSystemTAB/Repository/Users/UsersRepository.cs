@@ -62,7 +62,8 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             if (user.RoleId != Guid.Empty)
                 foundUser.RoleId = user.RoleId;
 
-            foundUser.VacationDaysCount = user.VacationDaysCount;
+            if(foundUser.VacationDaysCount != -333)
+                foundUser.VacationDaysCount = user.VacationDaysCount;
 
             Save();
 

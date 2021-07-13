@@ -64,8 +64,8 @@ namespace WorkManagementSystemTAB.Repository.Absences
                 foundAbsence.UserId = absence.UserId;
 
             foundAbsence.Confirmed = absence.Confirmed;
-            Save();
 
+            Save();
             return foundAbsence;
         }
 

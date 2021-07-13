@@ -37,7 +37,7 @@ namespace WorkManagementSystemTAB.Services.Roles
 
         public Role UpdateRole(Role role)
         {
-            return _rolesRepository.ModifyRole(role);
+            return _rolesRepository.UpdateRole(role);
         }
 
         public string GetAccessLvlById(Guid id)
