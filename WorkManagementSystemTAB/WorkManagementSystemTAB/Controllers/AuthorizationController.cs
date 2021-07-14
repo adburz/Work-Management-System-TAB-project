@@ -110,14 +110,10 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpPost("login")]
         public IActionResult Authorize(UserAuthorizationDTO user)
         {
-
-            user.Password = EncriptPassword(user.Password);
-
             var foundUser = _usersService.GetFullUserByEmail(user.Email);
             
             if (foundUser == null)
                 return NotFound();
-
 
             if (VerifyPassword(password:user.Password,hashedPassword:foundUser.Password))
                 return Ok(GenerateJwtToken(foundUser));
