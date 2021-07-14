@@ -68,7 +68,7 @@ namespace WorkManagementSystemTAB.Repository.Roles
             if (!string.IsNullOrEmpty(role.Name))
                 foundRole.Name = role.Name;
 
-            if (foundRole.AccessLevel != AccessLevelEnum.Undefined || foundRole != null)
+            if ( role.AccessLevel != null)
                 foundRole.AccessLevel = (AccessLevelEnum)role.AccessLevel;
 
             Save();

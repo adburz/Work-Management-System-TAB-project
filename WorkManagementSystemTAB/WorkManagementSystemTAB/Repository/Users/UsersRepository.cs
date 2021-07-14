@@ -60,10 +60,10 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             if (!string.IsNullOrEmpty(user.LastName))
                 foundUser.LastName = user.LastName;
 
-            if (user.RoleId != Guid.Empty || user.RoleId != null)
+            if (user.RoleId != null)
                 foundUser.RoleId = (Guid)user.RoleId;
 
-            if(foundUser.VacationDaysCount != -333 || user.VacationDaysCount != null)
+            if(user.VacationDaysCount != null)
                 foundUser.VacationDaysCount = (int)user.VacationDaysCount;
 
             Save();

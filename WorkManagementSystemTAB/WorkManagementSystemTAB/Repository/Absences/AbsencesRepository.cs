@@ -52,16 +52,16 @@ namespace WorkManagementSystemTAB.Repository.Absences
             if (foundAbsence == null)
                 return null;
 
-            if (absence.AbsenceTypeId != Guid.Empty || absence.AbsenceTypeId != null)
+            if ( absence.AbsenceTypeId != null)
                 foundAbsence.AbsenceTypeId = (Guid)absence.AbsenceTypeId;
 
-            if (absence.StartDate != DateTime.MinValue || absence.StartDate != null)
+            if ( absence.StartDate != null)
                 foundAbsence.StartDate = (DateTime)absence.StartDate;
 
-            if (absence.EndDate != DateTime.MinValue || absence.EndDate != null)
+            if ( absence.EndDate != null)
                 foundAbsence.EndDate = (DateTime)absence.EndDate;
 
-            if (absence.UserId != Guid.Empty || absence.UserId != null)
+            if ( absence.UserId != null)
                 foundAbsence.UserId = (Guid)absence.UserId;
 
             if (absence.Confirmed != null)

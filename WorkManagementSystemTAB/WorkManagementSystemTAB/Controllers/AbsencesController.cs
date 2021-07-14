@@ -156,7 +156,7 @@ namespace WorkManagementSystemTAB.Controllers
             if (absence == null)
                 return NotFound();
 
-            if (!_absenceService.IsAuthor((Guid)absence.UserId, LoggedUserEmail) && !IsManagerOrAbove())
+            if (!IsManagerOrAbove() && !_absenceService.IsAuthor((Guid)absence.UserId, LoggedUserEmail) )
                 return Unauthorized();
 
             var result = _absenceService.Update(absence);

@@ -84,7 +84,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             if (worktime == null)
                 return null;
 
-            return _worktimesRepository.UpdateWorktime(worktime);
+            return _worktimesRepository.Update(worktime);
         }
     }
 }

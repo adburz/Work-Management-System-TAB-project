@@ -121,18 +121,6 @@ namespace WorkManagementSystemTAB.Controllers
             return NotFound();
         }
 
-        [HttpGet("emptyGuid")]
-        public IActionResult GetEmptyGuid()
-        {
-            return Ok("00000000-0000-0000-0000-000000000000");
-        }
-
-        [HttpGet("emptyTime")]
-        public IActionResult GetEmptyTime()
-        {
-            return Ok("0001-01-01T00:00:00Z");
-        }
-
         private static string EncriptPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);

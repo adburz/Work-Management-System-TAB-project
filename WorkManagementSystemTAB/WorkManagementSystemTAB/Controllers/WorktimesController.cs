@@ -75,7 +75,7 @@ namespace WorkManagementSystemTAB.Controllers
             if (result == null)
                 return NotFound();
 
-            return Ok(_worktimesService.UpdateWorktime(worktime));
+            return Ok(_worktimesService.Update(worktime));
         }
 
         [HttpDelete("{id}")]

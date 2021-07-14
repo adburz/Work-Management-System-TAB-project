@@ -57,13 +57,13 @@ namespace WorkManagementSystemTAB.Repository.Worktimes
             if (foundWorktime == null)
                 return null;
 
-            if (worktime.StartTime != DateTime.MinValue || worktime.StartTime != null)
+            if ( worktime.StartTime != null)
                 foundWorktime.StartTime = (DateTime)worktime.StartTime;
 
-            if (worktime.EndTime != DateTime.MinValue || worktime.EndTime != null)
+            if ( worktime.EndTime != null)
                 foundWorktime.EndTime = (DateTime)worktime.EndTime;
 
-            if (worktime.UserId != Guid.Empty || worktime.UserId != null)
+            if ( worktime.UserId != null)
                 foundWorktime.UserId = (Guid)worktime.UserId;
 
             Save();
