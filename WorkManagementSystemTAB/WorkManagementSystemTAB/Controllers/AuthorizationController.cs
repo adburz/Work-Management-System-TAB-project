@@ -14,6 +14,8 @@ using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
 
+
+
 namespace WorkManagementSystemTAB.Controllers
 {
     [Route("[controller]")]
@@ -117,16 +119,10 @@ namespace WorkManagementSystemTAB.Controllers
                 return NotFound();
 
 
-            if (foundUser.Password == user.Password)
+            if (VerifyPassword(password:user.Password,hashedPassword:foundUser.Password))
                 return Ok(GenerateJwtToken(foundUser));
 
             return NotFound();
-        }
-
-        //TODO
-        private string EncriptPassword(string password)
-        {
-            return password;
         }
 
         [HttpGet("emptyGuid")]
@@ -140,8 +136,15 @@ namespace WorkManagementSystemTAB.Controllers
         {
             return Ok("0001-01-01T00:00:00Z");
         }
-        
+
+        private static string EncriptPassword(string password)
+        {
+            return BCrypt.Net.BCrypt.HashPassword(password);
+        }
+
+        private static bool VerifyPassword(string password, string hashedPassword)
+        {
+            return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
+        }
     }
-
-
 }

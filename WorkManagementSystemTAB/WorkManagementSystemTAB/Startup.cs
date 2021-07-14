@@ -41,9 +41,6 @@ namespace WorkManagementSystemTAB
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            var x2 = "ss";
-
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -73,9 +70,9 @@ namespace WorkManagementSystemTAB
                   }
                 }
                 );
+
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-
                 c.IncludeXmlComments(xmlPath);
             });
 
@@ -158,14 +155,6 @@ namespace WorkManagementSystemTAB
             {
                 endpoints.MapControllers();
             });
-        }
-        private static void AddSwaggerXml(Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenOptions c)
-        {
-            var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml");
-            foreach (var xmlFile in xmlFiles)
-            {
-                c.IncludeXmlComments(xmlFile);
-            }
         }
     }
 }
