@@ -1,4 +1,5 @@
 ﻿using System;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Roles
@@ -13,6 +14,6 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public string GetAccessLvlById(Guid id);
 
-        public Role UpdateRole(Role role);
+        public Role UpdateRole(RoleUpdateDTO role);
     }
 }

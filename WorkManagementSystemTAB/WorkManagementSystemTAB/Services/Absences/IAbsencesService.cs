@@ -16,6 +16,5 @@ namespace WorkManagementSystemTAB.Services.Absences
         public IEnumerable<Absence> GetAllConfirmed();
         public IEnumerable<Absence> GetAllConfirmedeWorkerAbsences(Guid userId);
         public IEnumerable<IEnumerable<WorktimeDTO>> FindReplacment(Guid absenceId);
-        bool IsAuthor(Guid? userId, string loggedUserEmail);
     }
 }

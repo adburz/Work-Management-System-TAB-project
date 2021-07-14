@@ -57,7 +57,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateRole(Role role)
+        public IActionResult UpdateRole(RoleUpdateDTO role)
         {
             if (!IsManagerOrAbove())
                 return Unauthorized();

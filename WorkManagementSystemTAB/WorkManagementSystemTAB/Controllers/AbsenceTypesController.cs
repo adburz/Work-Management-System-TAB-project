@@ -75,12 +75,13 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpPut]
-        public IActionResult ModifyAbsenceType([FromBody] AbsenceType absenceTypeRequest)
+        public IActionResult UpdateAbsenceType(AbsenceTypeUpdateDTO absenceTypeRequest)
         {
             if (!IsManagerOrAbove())
                 return Unauthorized();
 
             var result = _absenceTypesService.Update(absenceTypeRequest);
+
             if (result == null)
                 return NotFound();
 

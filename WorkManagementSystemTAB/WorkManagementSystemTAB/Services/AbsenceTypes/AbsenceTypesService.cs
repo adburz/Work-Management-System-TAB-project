@@ -26,7 +26,7 @@ namespace WorkManagementSystemTAB.Services.AbsenceTypes
             
         }
 
-        public AbsenceType Update(AbsenceType absenceType)
+        public AbsenceType Update(AbsenceTypeUpdateDTO absenceType)
         {
             return _absencesRepository.Update(absenceType);
 

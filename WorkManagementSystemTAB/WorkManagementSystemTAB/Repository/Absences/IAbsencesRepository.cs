@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences

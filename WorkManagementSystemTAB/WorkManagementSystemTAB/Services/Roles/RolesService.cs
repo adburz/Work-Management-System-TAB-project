@@ -35,7 +35,7 @@ namespace WorkManagementSystemTAB.Services.Roles
             return _rolesRepository.GetRoleIdByName(roleName);
         }
 
-        public Role UpdateRole(Role role)
+        public Role UpdateRole(RoleUpdateDTO role)
         {
             return _rolesRepository.UpdateRole(role);
         }
