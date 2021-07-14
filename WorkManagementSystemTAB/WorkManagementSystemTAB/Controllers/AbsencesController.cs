@@ -98,7 +98,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
 
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetAbsenceById(Guid id)
         {
             var absence = _absenceService.GetById(id);
@@ -164,7 +164,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
 
-        [HttpDelete("id/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteAbsence(Guid id)
         {
             var absence = _absenceService.GetById(id);

@@ -33,7 +33,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Ok(absenceTypes);
         }
 
-        [HttpGet("id/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetAbsenceTypeById(Guid id)
         {
             if (!IsManagerOrAbove())
@@ -88,7 +88,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
 
-        [HttpDelete("id/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult DeleteAbsenceType(Guid id)
         {
             if (!IsManagerOrAbove())
