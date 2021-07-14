@@ -20,7 +20,7 @@ namespace WorkManagementSystemTAB.Controllers
             _worktimesService = worktimesService;
         }
 
-        [HttpGet("id/{worktimeId}")]
+        [HttpGet("{worktimeId}")]
         public IActionResult GetWorktime(Guid worktimeId)
         {
             if (!IsManagerOrAbove())
