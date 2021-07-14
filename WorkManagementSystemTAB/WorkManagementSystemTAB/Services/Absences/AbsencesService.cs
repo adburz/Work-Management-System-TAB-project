@@ -108,17 +108,6 @@ namespace WorkManagementSystemTAB.Services.Absences
             return _absencesRepository.GetById(id);
         }
 
-        public bool IsAuthor(Absence absence, string email)
-        {
-
-            var user = _usersRepository.GetUserByEmail(email);
-            if (user == null || absence == null)
-                return false;
-
-            return user.UserId == absence.UserId;
-
-        }
-
         public bool IsAuthor(Guid userId, string email)
         {
             var user = _usersRepository.GetUserByEmail(email);
@@ -142,7 +131,7 @@ namespace WorkManagementSystemTAB.Services.Absences
         {
             return _absencesRepository.GetAll().Where(x => x.Confirmed == true).ToList();
         }
-        
+
         public IEnumerable<Absence> GetAllConfirmedeWorkerAbsences(Guid userId)
         {
             return GetAllConfirmed().Where(x => x.UserId == userId).ToList();
@@ -169,9 +158,9 @@ namespace WorkManagementSystemTAB.Services.Absences
                 return emptyList;
 
             var allWorktimesWithoutAplicantWithSameRole = allWorktimes.Join(usersWithSameRoleWihtoutApplicant,
-                                                                            worktime=>worktime.UserId,
-                                                                            user=>user.UserId,
-                                                                            (worktime,user)=>worktime);
+                                                                            worktime => worktime.UserId,
+                                                                            user => user.UserId,
+                                                                            (worktime, user) => worktime);
 
             var applicantWorktimes = _worktimesService.GetUsersWorktimeSchedule(absence.UserId);
             var afflictedWorktimes = applicantWorktimes?.Where(x => absence.StartDate <= x.EndTime && absence.EndDate >= x.StartTime)?.ToList();
@@ -180,15 +169,15 @@ namespace WorkManagementSystemTAB.Services.Absences
                 return emptyList;
 
             var replacementWorktimes = new List<List<WorktimeDTO>>();
-            
-            afflictedWorktimes.ForEach(afflictedWorktime=>
+
+            afflictedWorktimes.ForEach(afflictedWorktime =>
             {
                 List<WorktimeDTO> tmpListForEachWorktime = new();
                 usersWithSameRoleWihtoutApplicant.ForEach(user =>
                 {
                     var userWorktimes = allWorktimesWithoutAplicantWithSameRole.Where(x => x.UserId == user.UserId).ToList();
 
-                    if(userWorktimes.TrueForAll(x=>x.StartTime > afflictedWorktime.EndTime || x.EndTime < afflictedWorktime.StartTime ))
+                    if (userWorktimes.TrueForAll(x => x.StartTime > afflictedWorktime.EndTime || x.EndTime < afflictedWorktime.StartTime))
                     {
                         var tmpWorktime = new WorktimeDTO()
                         {

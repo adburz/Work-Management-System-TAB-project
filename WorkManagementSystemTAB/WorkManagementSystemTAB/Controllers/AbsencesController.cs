@@ -106,7 +106,7 @@ namespace WorkManagementSystemTAB.Controllers
             if (absence == null)
                 return NotFound();
 
-            if (!_absenceService.IsAuthor(absence, LoggedUserEmail) && !IsManagerOrAbove())
+            if (!_absenceService.IsAuthor(absence.UserId, LoggedUserEmail) && !IsManagerOrAbove())
                 return Unauthorized();
 
             return Ok(absence);
@@ -153,7 +153,10 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpPut]
         public IActionResult UpdateAbsence(Absence absence)
         {
-            if (!_absenceService.IsAuthor(absence, LoggedUserEmail) && !IsManagerOrAbove())
+            if (absence == null)
+                return NotFound();
+
+            if (!_absenceService.IsAuthor(absence.UserId, LoggedUserEmail) && !IsManagerOrAbove())
                 return Unauthorized();
 
             var result = _absenceService.Update(absence);
@@ -172,7 +175,7 @@ namespace WorkManagementSystemTAB.Controllers
             if (absence == null)
                 return NotFound();
 
-            if (!_absenceService.IsAuthor(absence, LoggedUserEmail) && !IsManagerOrAbove())
+            if (!_absenceService.IsAuthor(absence.UserId, LoggedUserEmail) && !IsManagerOrAbove())
                 return Unauthorized();
 
             _absenceService.Delete(id);

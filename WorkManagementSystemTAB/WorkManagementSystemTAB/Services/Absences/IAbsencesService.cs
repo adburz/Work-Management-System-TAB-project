@@ -9,7 +9,6 @@ namespace WorkManagementSystemTAB.Services.Absences
     {
         public Absence Update(Absence absence);
         public Absence Approve(Guid id);
-        public bool IsAuthor(Absence absence, string email);
         public bool IsAuthor(Guid userId, string email);
         public IEnumerable<Absence> GetAllActive();
         public IEnumerable<Absence> GetAllWorkerAbsensces(Guid userId);
