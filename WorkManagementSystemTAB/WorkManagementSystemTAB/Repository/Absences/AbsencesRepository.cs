@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.Absences
@@ -44,26 +45,27 @@ namespace WorkManagementSystemTAB.Repository.Absences
             return _context.Absences.FirstOrDefault(x => x.AbsenceId == id);
         }
 
-        public Absence Update(Absence absence)
+        public Absence Update(AbsenceUpdateDTO absence)
         {
             var foundAbsence = GetById(absence.AbsenceId);
 
             if (foundAbsence == null)
                 return null;
 
-            if (absence.AbsenceTypeId != Guid.Empty)
-                foundAbsence.AbsenceTypeId = absence.AbsenceTypeId;
+            if (absence.AbsenceTypeId != Guid.Empty || absence.AbsenceTypeId != null)
+                foundAbsence.AbsenceTypeId = (Guid)absence.AbsenceTypeId;
 
-            if (absence.StartDate != DateTime.MinValue)
-                foundAbsence.StartDate = absence.StartDate;
+            if (absence.StartDate != DateTime.MinValue || absence.StartDate != null)
+                foundAbsence.StartDate = (DateTime)absence.StartDate;
 
-            if (absence.EndDate != DateTime.MinValue)
-                foundAbsence.EndDate = absence.EndDate;
+            if (absence.EndDate != DateTime.MinValue || absence.EndDate != null)
+                foundAbsence.EndDate = (DateTime)absence.EndDate;
 
-            if (absence.UserId != Guid.Empty)
-                foundAbsence.UserId = absence.UserId;
+            if (absence.UserId != Guid.Empty || absence.UserId != null)
+                foundAbsence.UserId = (Guid)absence.UserId;
 
-            foundAbsence.Confirmed = absence.Confirmed;
+            if (absence.Confirmed != null)
+                foundAbsence.Confirmed = (bool)absence.Confirmed;
 
             Save();
             return foundAbsence;

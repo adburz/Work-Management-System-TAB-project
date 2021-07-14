@@ -7,7 +7,7 @@ namespace WorkManagementSystemTAB.Services.Absences
 {
     public interface IAbsencesService : IService<Absence, Guid,AbsenceDTO>
     {
-        public Absence Update(Absence absence);
+        public Absence Update(AbsenceUpdateDTO absence);
         public Absence Approve(Guid id);
         public bool IsAuthor(Guid userId, string email);
         public IEnumerable<Absence> GetAllActive();
@@ -16,6 +16,6 @@ namespace WorkManagementSystemTAB.Services.Absences
         public IEnumerable<Absence> GetAllConfirmed();
         public IEnumerable<Absence> GetAllConfirmedeWorkerAbsences(Guid userId);
         public IEnumerable<IEnumerable<WorktimeDTO>> FindReplacment(Guid absenceId);
-
+        bool IsAuthor(Guid? userId, string loggedUserEmail);
     }
 }

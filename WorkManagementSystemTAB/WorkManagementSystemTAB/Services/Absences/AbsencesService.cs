@@ -56,7 +56,7 @@ namespace WorkManagementSystemTAB.Services.Absences
             return newAbssence;
         }
 
-        public Absence Update(Absence absence)
+        public Absence Update(AbsenceUpdateDTO absence)
         {
             return _absencesRepository.Update(absence);
         }

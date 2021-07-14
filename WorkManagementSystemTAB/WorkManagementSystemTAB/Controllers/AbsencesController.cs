@@ -151,7 +151,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateAbsence(Absence absence)
+        public IActionResult UpdateAbsence(AbsenceUpdateDTO absence)
         {
             if (absence == null)
                 return NotFound();
