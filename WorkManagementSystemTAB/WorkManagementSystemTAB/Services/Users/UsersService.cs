@@ -96,7 +96,7 @@ namespace WorkManagementSystemTAB.Services.Users
         }
 
 
-        public User Update(User user)
+        public User Update(UserUpdateDTO user)
         {
             return _userRepository.Update(user);
         }

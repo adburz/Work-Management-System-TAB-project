@@ -13,7 +13,7 @@ namespace WorkManagementSystemTAB.Services.Users
         public User AddUser(AddUserDTO user);
         public UserDTO GetUserByEmail(string email);
         public void DeleteUser(Guid id);
-        public User Update(User user);
+        public User Update(UserUpdateDTO user);
         public User CutDaysOff(Guid id, int daysToCut);
         public bool IsAuthor(Guid userId, string email);
         public User GetFullUserByEmail(string email);

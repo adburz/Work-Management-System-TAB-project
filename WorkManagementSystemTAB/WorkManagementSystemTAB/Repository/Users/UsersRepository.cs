@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Repository.UserResitory
@@ -40,7 +41,7 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             return _context.Users.FirstOrDefault(x => x.Email == email);
         }
 
-        public User Update(User user)
+        public User Update(UserUpdateDTO user)
         {
             var foundUser = _context.Users.FirstOrDefault(x => x.UserId == user.UserId);
 
@@ -59,11 +60,11 @@ namespace WorkManagementSystemTAB.Repository.UserResitory
             if (!string.IsNullOrEmpty(user.LastName))
                 foundUser.LastName = user.LastName;
 
-            if (user.RoleId != Guid.Empty)
-                foundUser.RoleId = user.RoleId;
+            if (user.RoleId != Guid.Empty || user.RoleId != null)
+                foundUser.RoleId = (Guid)user.RoleId;
 
-            if(foundUser.VacationDaysCount != -333)
-                foundUser.VacationDaysCount = user.VacationDaysCount;
+            if(foundUser.VacationDaysCount != -333 || user.VacationDaysCount != null)
+                foundUser.VacationDaysCount = (int)user.VacationDaysCount;
 
             Save();
 

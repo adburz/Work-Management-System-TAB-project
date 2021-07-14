@@ -63,7 +63,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateUser(User user)
+        public IActionResult UpdateUser(UserUpdateDTO user)
         {
             if (!_usersService.IsAuthor(user.UserId, LoggedUserEmail) && !IsManagerOrAbove())
                 return Unauthorized();
