@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.Services.Worktimes
@@ -9,6 +9,6 @@ namespace WorkManagementSystemTAB.Services.Worktimes
     {
         public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(Guid userId);
         public IEnumerable<Worktime> AddWorktimeList(IEnumerable<DTO.Request.WorktimeDTO> worktimeList);
-        public Worktime UpdateWorktime(Worktime worktime);
+        public Worktime Update(WorktimeUpdateDTO worktime);
     }
 }

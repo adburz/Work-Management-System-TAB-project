@@ -65,7 +65,7 @@ namespace WorkManagementSystemTAB.Controllers
         }
 
         [HttpPut]
-        public IActionResult UpdateWorktime(Worktime worktime)
+        public IActionResult UpdateWorktime(WorktimeUpdateDTO worktime)
         {
             if (!IsManagerOrAbove())
                 return Unauthorized();

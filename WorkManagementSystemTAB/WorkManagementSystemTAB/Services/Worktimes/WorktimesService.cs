@@ -79,7 +79,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             return _worktimesRepository.AddListOfWorktimes(newWorktimes);
         }
 
-        public Worktime UpdateWorktime(Worktime worktime)
+        public Worktime Update(WorktimeUpdateDTO worktime)
         {
             if (worktime == null)
                 return null;
