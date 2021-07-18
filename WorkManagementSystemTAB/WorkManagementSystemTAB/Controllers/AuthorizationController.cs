@@ -111,14 +111,14 @@ namespace WorkManagementSystemTAB.Controllers
         public IActionResult Authorize(UserAuthorizationDTO user)
         {
             var foundUser = _usersService.GetFullUserByEmail(user.Email);
-            
-            if (foundUser == null)
-                return NotFound();
 
-            if (VerifyPassword(password:user.Password,hashedPassword:foundUser.Password))
+            if (foundUser == null)
+                return Unauthorized();
+
+            if (VerifyPassword(password: user.Password, hashedPassword: foundUser.Password))
                 return Ok(GenerateJwtToken(foundUser));
 
-            return NotFound();
+            return Unauthorized();
         }
 
         private static string EncriptPassword(string password)

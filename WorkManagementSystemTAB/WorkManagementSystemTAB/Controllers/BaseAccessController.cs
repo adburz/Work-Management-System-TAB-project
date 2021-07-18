@@ -6,6 +6,7 @@ namespace WorkManagementSystemTAB.Controllers
 {
     public class BaseAccessController : ControllerBase
     {
+        protected string LoggedUserEmail => this.User.FindFirstValue("email");
         protected bool IsLoggedIn()
         {
             if (User.FindFirstValue(Strings.AccessLevel) == null)
@@ -13,7 +14,6 @@ namespace WorkManagementSystemTAB.Controllers
 
             return true;
         }
-
         protected bool IsManagerOrAbove()
         {
             if (!IsLoggedIn())
@@ -24,7 +24,6 @@ namespace WorkManagementSystemTAB.Controllers
 
             return true;
         }
-
         protected bool IsWorker()
         {
             var accessLvl = this.User.FindFirstValue(Strings.AccessLevel);
@@ -35,7 +34,6 @@ namespace WorkManagementSystemTAB.Controllers
             return false;
 
         }
-
         protected bool IsManager()
         {
             var accessLvl = this.User.FindFirstValue(Strings.AccessLevel);
@@ -45,7 +43,6 @@ namespace WorkManagementSystemTAB.Controllers
 
             return false;
         }
-
         protected bool IsAdmin()
         {
             var accessLvl = this.User.FindFirstValue(Strings.AccessLevel);
@@ -55,7 +52,5 @@ namespace WorkManagementSystemTAB.Controllers
 
             return false;
         }
-
-        protected string LoggedUserEmail => this.User.FindFirstValue("email");
     }
 }
