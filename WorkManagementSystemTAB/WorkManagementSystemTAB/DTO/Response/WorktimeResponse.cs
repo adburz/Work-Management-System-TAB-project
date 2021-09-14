@@ -2,7 +2,7 @@
 
 namespace WorkManagementSystemTAB.DTO.Response
 {
-    public class WorktimeDTO
+    public class WorktimeResponse
     {
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }

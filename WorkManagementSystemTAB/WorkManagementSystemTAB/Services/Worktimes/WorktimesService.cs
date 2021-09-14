@@ -35,9 +35,9 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             return _worktimesRepository.Add(newWorktime);
         }
 
-        public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(Guid userId)
+        public IEnumerable<DTO.Response.WorktimeResponse> GetUsersWorktimeSchedule(Guid userId)
         {
-            var worktimeSchedule = _worktimesRepository.GetWorktimesByUserId(userId).Select(x => new DTO.Response.WorktimeDTO()
+            var worktimeSchedule = _worktimesRepository.GetWorktimesByUserId(userId).Select(x => new DTO.Response.WorktimeResponse()
             {
                 StartTime = x.StartTime,
                 EndTime = x.EndTime,

@@ -10,7 +10,7 @@ namespace WorkManagementSystemTAB.Controllers
     
     [Route("[controller]")]
     [ApiController]
-    [Authorize]
+    //[Authorize]
     public class AbsencesController : BaseAccessController
     {
         private readonly IAbsencesService _absenceService;

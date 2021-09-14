@@ -7,7 +7,7 @@ namespace WorkManagementSystemTAB.Services.Worktimes
 {
     public interface IWorktimesService : IService<Worktime, Guid,DTO.Request.WorktimeDTO>
     {
-        public IEnumerable<DTO.Response.WorktimeDTO> GetUsersWorktimeSchedule(Guid userId);
+        public IEnumerable<DTO.Response.WorktimeResponse> GetUsersWorktimeSchedule(Guid userId);
         public IEnumerable<Worktime> AddWorktimeList(IEnumerable<DTO.Request.WorktimeDTO> worktimeList);
         public Worktime Update(WorktimeUpdateDTO worktime);
     }

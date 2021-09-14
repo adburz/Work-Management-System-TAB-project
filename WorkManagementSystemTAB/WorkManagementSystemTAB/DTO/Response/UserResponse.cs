@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace WorkManagementSystemTAB.DTO.Response
 {
-    public class UserDTO
+    public class UserResponse
     {
         [Required]
         public Guid UserId { get; set; }

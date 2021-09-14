@@ -72,7 +72,7 @@ namespace WorkManagementSystemTAB.Controllers
                 var existingUser = _usersService.GetUserByEmail(user.Email);
                 if (existingUser != null)
                 {
-                    return BadRequest(new RegistrationResponse()
+                    return BadRequest(new AuthResponse()
                     {
                         Errors = new List<string>() { "Email already in use" },
                         Success = false
@@ -90,14 +90,14 @@ namespace WorkManagementSystemTAB.Controllers
                     Password = EncriptPassword(user.Password),
                     RoleId = _rolesService.GetRoleIdByName(Strings.UnAssigned)
                 });
-                return Ok(new RegistrationResponse()
+                return Ok(new AuthResponse()
                 {
                     Success = true,
                     Token = jwtToken
                 });
             }
 
-            return BadRequest(new RegistrationResponse()
+            return BadRequest(new AuthResponse()
             {
                 Errors = new List<string>()
                 {
