@@ -117,7 +117,7 @@ namespace WorkManagementSystemTAB.Controllers
             return Unauthorized();
         }
 
-        private static string EncriptPassword(string password)
+        public static string EncriptPassword(string password)
         {
             return BCrypt.Net.BCrypt.HashPassword(password);
         }

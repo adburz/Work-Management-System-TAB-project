@@ -7,6 +7,7 @@ using WorkManagementSystemTAB.Repository.UserResitory;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.Repository.Roles;
+using WorkManagementSystemTAB.Controllers;
 
 namespace WorkManagementSystemTAB.Services.Users
 {
@@ -30,7 +31,7 @@ namespace WorkManagementSystemTAB.Services.Users
             var newUser = new User() 
             { 
                 Email = user.Email,
-                Password = user.Password,
+                Password = AuthorizationController.EncriptPassword(user.Password),
                 FirstName = user.FirstName,
                 LastName = user.LastName ,
                 RoleId = _rolesRepository.GetRoleIdByName(Strings.UnAssigned)
