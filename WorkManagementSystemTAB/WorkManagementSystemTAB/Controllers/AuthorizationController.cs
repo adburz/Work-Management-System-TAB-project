@@ -116,7 +116,7 @@ namespace WorkManagementSystemTAB.Controllers
                 return Unauthorized();
 
             if (VerifyPassword(password: user.Password, hashedPassword: foundUser.Password))
-                return Ok(GenerateJwtToken(foundUser));
+                return Ok(new AuthResponse() { Token = GenerateJwtToken(foundUser),Success = true });
 
             return Unauthorized();
         }

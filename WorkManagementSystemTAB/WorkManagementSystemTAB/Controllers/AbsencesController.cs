@@ -29,8 +29,8 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet]
         public IActionResult GetAbsences()
         {
-            if (!IsManagerOrAbove())
-                return Unauthorized();
+            //if (!IsManagerOrAbove())
+            //    return Unauthorized();
 
             var absences = _absenceService.GetAll();
 
