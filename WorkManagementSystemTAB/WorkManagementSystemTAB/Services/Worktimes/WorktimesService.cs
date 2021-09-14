@@ -54,17 +54,6 @@ namespace WorkManagementSystemTAB.Services.Worktimes
 
         public IEnumerable<Worktime> AddWorktimeList(IEnumerable<WorktimeDTO> worktimeList)
         {
-            //var workSchedule = _worktimesRepository.GetWorktimesByUserId(worktimeList.First().UserId);
-            //var tempWorktimeList = worktimeList.ToList();
-            //foreach(var worktimeBlock in worktimeList)
-            //{
-            //    if (CheckIfWorktimeOverlap(ref workSchedule, worktimeBlock)) return null;
-            //    tempWorktimeList.Remove(worktimeBlock);
-            //    var overlappedWorktimes = tempWorktimeList.Where(x => (x.StartTime <= worktimeBlock.EndTime && worktimeBlock.StartTime <= x.EndTime)).ToList();
-            //    if (overlappedWorktimes.Any()) return null;
-            //}
-
-
             var tmp = new Dictionary<Guid, List<WorktimeDTO>>();
             
             foreach (var worktime in worktimeList)
