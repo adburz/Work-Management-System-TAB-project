@@ -8,10 +8,10 @@ namespace WorkManagementSystemTAB.Services.Users
 {
     public interface IUsersService
     {
-        public IEnumerable<UserDTO> GetUsers();
-        public UserDTO GetById(Guid id);
+        public IEnumerable<UserResponse> GetUsers();
+        public UserResponse GetById(Guid id);
         public User AddUser(AddUserDTO user);
-        public UserDTO GetUserByEmail(string email);
+        public UserResponse GetUserByEmail(string email);
         public void DeleteUser(Guid id);
         public User Update(UserUpdateDTO user);
         public User CutDaysOff(Guid id, int daysToCut);

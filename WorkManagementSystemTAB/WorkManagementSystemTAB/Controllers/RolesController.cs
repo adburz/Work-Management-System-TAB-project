@@ -8,7 +8,7 @@ using WorkManagementSystemTAB.Models;
 namespace WorkManagementSystemTAB.Controllers
 {
     [Route("[controller]")]
-    [Authorize]
+    //[Authorize]
     [ApiController]
     public class RolesController : BaseAccessController
     {

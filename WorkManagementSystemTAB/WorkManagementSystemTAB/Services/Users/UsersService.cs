@@ -44,14 +44,14 @@ namespace WorkManagementSystemTAB.Services.Users
             _userRepository.Delete(id);
         }
 
-        public UserDTO GetUserByEmail(string email)
+        public UserResponse GetUserByEmail(string email)
         {
             var user = _userRepository.GetUserByEmail(email);
            
             if (user == null)
                 return null;
 
-            return new UserDTO()
+            return new UserResponse()
             {
                 Email = user.Email,
                 FirstName = user.FirstName,
@@ -62,14 +62,14 @@ namespace WorkManagementSystemTAB.Services.Users
             };
         }
 
-        public UserDTO GetById(Guid id)
+        public UserResponse GetById(Guid id)
         {
             var user = _userRepository.GetById(id);
             
             if (user == null)
                 return null;
 
-            return new UserDTO()
+            return new UserResponse()
             {
                 Email = user.Email,
                 FirstName = user.FirstName,
@@ -80,10 +80,10 @@ namespace WorkManagementSystemTAB.Services.Users
             };
         }
 
-        public IEnumerable<UserDTO> GetUsers()
+        public IEnumerable<UserResponse> GetUsers()
         {
             var usersList= _userRepository.GetAll();
-            return usersList.Select(x => new UserDTO()
+            return usersList.Select(x => new UserResponse()
             {
                 Email = x.Email,
                 FirstName = x.FirstName,
