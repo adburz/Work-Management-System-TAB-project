@@ -35,15 +35,9 @@ namespace WorkManagementSystemTAB.Services.Worktimes
             return _worktimesRepository.Add(newWorktime);
         }
 
-        public IEnumerable<DTO.Response.WorktimeResponse> GetUsersWorktimeSchedule(Guid userId)
+        public IEnumerable<Worktime> GetUsersWorktimeSchedule(Guid userId)
         {
-            var worktimeSchedule = _worktimesRepository.GetWorktimesByUserId(userId).Select(x => new DTO.Response.WorktimeResponse()
-            {
-                StartTime = x.StartTime,
-                EndTime = x.EndTime,
-                WorktimeId=x.WorktimeId 
-            });
-            return worktimeSchedule.Any() ? worktimeSchedule : null;
+            return _worktimesRepository.GetWorktimesByUserId(userId);
         }
 
         public void Delete(Guid id) {
@@ -60,15 +54,52 @@ namespace WorkManagementSystemTAB.Services.Worktimes
 
         public IEnumerable<Worktime> AddWorktimeList(IEnumerable<WorktimeDTO> worktimeList)
         {
-            var workSchedule = _worktimesRepository.GetWorktimesByUserId(worktimeList.First().UserId);
-            var tempWorktimeList = worktimeList.ToList();
-            foreach(var worktimeBlock in worktimeList)
+            //var workSchedule = _worktimesRepository.GetWorktimesByUserId(worktimeList.First().UserId);
+            //var tempWorktimeList = worktimeList.ToList();
+            //foreach(var worktimeBlock in worktimeList)
+            //{
+            //    if (CheckIfWorktimeOverlap(ref workSchedule, worktimeBlock)) return null;
+            //    tempWorktimeList.Remove(worktimeBlock);
+            //    var overlappedWorktimes = tempWorktimeList.Where(x => (x.StartTime <= worktimeBlock.EndTime && worktimeBlock.StartTime <= x.EndTime)).ToList();
+            //    if (overlappedWorktimes.Any()) return null;
+            //}
+
+
+            var tmp = new Dictionary<Guid, List<WorktimeDTO>>();
+            
+            foreach (var worktime in worktimeList)
             {
-                if (CheckIfWorktimeOverlap(ref workSchedule, worktimeBlock)) return null;
-                tempWorktimeList.Remove(worktimeBlock);
-                var overlappedWorktimes = tempWorktimeList.Where(x => (x.StartTime <= worktimeBlock.EndTime && worktimeBlock.StartTime <= x.EndTime)).ToList();
-                if (overlappedWorktimes.Any()) return null;
+                if(!tmp.ContainsKey(worktime.UserId))
+                {
+                    tmp[worktime.UserId] = new List<WorktimeDTO>();
+                }
+                
+                var currentUserWorktimes = _worktimesRepository.GetWorktimesByUserId(worktime.UserId);
+
+                if(currentUserWorktimes.Any(x => x.StartTime <= worktime.EndTime && x.EndTime >= worktime.StartTime))
+                {
+                    return null;
+                }
+
+                tmp[worktime.UserId].Add(worktime);
             }
+
+            foreach(var x in tmp)
+            {
+                var list = x.Value;
+
+                for(int i = 0; i < list.Count;i++)
+                {
+                    for(int j = i + 1; j<list.Count;j++)
+                    {
+                        if(list[i] == list[j])
+                        {
+                            return null;
+                        }
+                    }
+                }
+            }
+
             var newWorktimes = worktimeList.Select(x => new Worktime()
             {
                 EndTime = x.EndTime,
