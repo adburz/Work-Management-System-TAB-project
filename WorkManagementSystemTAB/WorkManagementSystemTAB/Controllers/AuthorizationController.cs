@@ -10,7 +10,6 @@ using WorkManagementSystemTAB.Configuration;
 using WorkManagementSystemTAB.DTO.Request;
 using WorkManagementSystemTAB.DTO.Response;
 using WorkManagementSystemTAB.Models;
-using WorkManagementSystemTAB.Services.Authorization;
 using WorkManagementSystemTAB.Services.Roles;
 using WorkManagementSystemTAB.Services.Users;
 
@@ -25,17 +24,14 @@ namespace WorkManagementSystemTAB.Controllers
 
         private readonly IUsersService _usersService;
         private readonly IRolesService _rolesService;
-        private readonly IAuthService _authService;
 
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
-            IRolesService rolesService, IAuthService authService, IUsersService usersService)
+            IRolesService rolesService,   IUsersService usersService)
         {
             _rolesService = rolesService;
 
             _jwtConfig = optionsMonitor.CurrentValue;
-
-            _authService = authService;
 
             _usersService = usersService;
         }

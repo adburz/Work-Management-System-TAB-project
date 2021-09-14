@@ -15,6 +15,8 @@ namespace WorkManagementSystemTAB.Services.AbsenceTypes
 
         public AbsenceType Add(AbsenceTypeDTO absenceTypeDTO)
         {
+            if (_absencesRepository.GetByName(absenceTypeDTO.Name)!=null) return null; 
+
             var newAbsenceType = new AbsenceType()
             {
                 AbsenceTypeId = Guid.NewGuid(),
