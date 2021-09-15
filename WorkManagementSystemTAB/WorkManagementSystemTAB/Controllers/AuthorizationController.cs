@@ -27,7 +27,7 @@ namespace WorkManagementSystemTAB.Controllers
 
         private readonly JwtConfig _jwtConfig;
         public AuthorizationController(IOptionsMonitor<JwtConfig> optionsMonitor,
-            IRolesService rolesService,   IUsersService usersService)
+            IRolesService rolesService, IUsersService usersService)
         {
             _rolesService = rolesService;
 
@@ -116,7 +116,13 @@ namespace WorkManagementSystemTAB.Controllers
                 return Unauthorized();
 
             if (VerifyPassword(password: user.Password, hashedPassword: foundUser.Password))
-                return Ok(new AuthResponse() { Token = GenerateJwtToken(foundUser),Success = true });
+                return Ok(new AuthResponse()
+                {
+                    LoggedUser = new UserResponse(foundUser),
+                    Token = GenerateJwtToken(foundUser),
+                    Success = true,
+                    Errors = null,
+                });
 
             return Unauthorized();
         }
