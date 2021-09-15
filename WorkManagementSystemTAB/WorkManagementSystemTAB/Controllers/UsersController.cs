@@ -68,12 +68,13 @@ namespace WorkManagementSystemTAB.Controllers
             if (!_usersService.IsAuthor(user.UserId, LoggedUserEmail) && !IsManagerOrAbove())
                 return Unauthorized();
 
-            if(IsWorker())
-            {
-                //worker cant change roles
-                user.RoleId = Guid.Empty;
-            }
+            //if(IsWorker()) What is this?
+            //{
+            //    //worker cant change roles
+            //    user.RoleId = Guid.Empty;
+            //}
 
+            user.Password = AuthorizationController.EncriptPassword(user.Password);
             var result = _usersService.Update(user);
 
             if(result == null)
