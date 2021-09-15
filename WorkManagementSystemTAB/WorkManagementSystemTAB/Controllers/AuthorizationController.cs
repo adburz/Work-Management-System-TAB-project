@@ -70,6 +70,8 @@ namespace WorkManagementSystemTAB.Controllers
                 {
                     return BadRequest(new AuthResponse()
                     {
+                        LoggedUser = null,
+                        Token = null,
                         Errors = new List<string>() { "Email already in use" },
                         Success = false
                     });
@@ -88,8 +90,10 @@ namespace WorkManagementSystemTAB.Controllers
                 });
                 return Ok(new AuthResponse()
                 {
+                    LoggedUser = new UserResponse(result),
                     Success = true,
-                    Token = jwtToken
+                    Token = jwtToken,
+                    Errors = null
                 });
             }
 

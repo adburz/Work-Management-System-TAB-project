@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using WorkManagementSystemTAB.Models;
 
 namespace WorkManagementSystemTAB.DTO.Response
 {
@@ -17,5 +18,17 @@ namespace WorkManagementSystemTAB.DTO.Response
         public Guid RoleId { get; set; }
         [Required]
         public int VacationDaysCount { get; set; }
+
+        public UserResponse() { }
+
+        public UserResponse(User user)
+        {
+            this.UserId = user.UserId;
+            this.Email = user.Email;
+            this.FirstName = user.FirstName;
+            this.LastName = user.LastName;
+            this.RoleId = user.RoleId;
+            this.VacationDaysCount = user.VacationDaysCount;
+        }
     }
 }
