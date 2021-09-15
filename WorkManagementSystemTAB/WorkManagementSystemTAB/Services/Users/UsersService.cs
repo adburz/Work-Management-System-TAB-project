@@ -28,13 +28,13 @@ namespace WorkManagementSystemTAB.Services.Users
                 return null;
             }
 
-            var newUser = new User() 
-            { 
+            var newUser = new User()
+            {
                 Email = user.Email,
                 Password = AuthorizationController.EncriptPassword(user.Password),
                 FirstName = user.FirstName,
-                LastName = user.LastName ,
-                RoleId = _rolesRepository.GetRoleIdByName(Strings.UnAssigned)
+                LastName = user.LastName,
+                RoleId = user.RoleId,
             };
 
             return _userRepository.Add(newUser);
