@@ -10,7 +10,7 @@ using WorkManagementSystemTAB.Services.Worktimes;
 namespace WorkManagementSystemTAB.Controllers
 {
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class WorktimesController : BaseAccessController
     {

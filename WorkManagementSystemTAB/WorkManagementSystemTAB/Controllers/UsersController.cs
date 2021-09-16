@@ -8,7 +8,7 @@ using WorkManagementSystemTAB.DTO.Request;
 namespace WorkManagementSystemTAB.Controllers
 {
     [Route("[controller]")]
-    //[Authorize]
+    [Authorize]
     [ApiController]
     public class UsersController : BaseAccessController
     {

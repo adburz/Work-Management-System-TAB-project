@@ -55,7 +55,8 @@ namespace WorkManagementSystemTAB.Repository.Roles
 
         public string GetAccessLvlById(Guid id)
         {
-            return _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId)).AccessLevel.ToString();
+            var x = _context.Roles.FirstOrDefault(x => id.Equals(x.RoleId));
+            return x.AccessLevel.ToString();
         }
 
         public Role UpdateRole(RoleUpdateDTO role)
