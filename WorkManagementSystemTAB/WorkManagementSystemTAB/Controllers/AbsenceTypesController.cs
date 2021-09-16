@@ -22,7 +22,7 @@ namespace WorkManagementSystemTAB.Controllers
         [AllowAnonymous]
         public IActionResult GetAbsenceTypes()
         {
-            if (!IsManagerOrAbove())
+            if (!IsWorkerOrAbove())
                 return Unauthorized();
 
             var absenceTypes = _absenceTypesService.GetAll();

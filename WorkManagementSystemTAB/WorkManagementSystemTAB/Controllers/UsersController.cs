@@ -22,7 +22,7 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet]
         public IActionResult GetUsers()
         {
-            if (!IsManagerOrAbove())
+            if (!IsWorkerOrAbove())
                 return Unauthorized();
 
             var users = _usersService.GetUsers();

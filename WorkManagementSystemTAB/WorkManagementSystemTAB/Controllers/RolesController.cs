@@ -34,7 +34,7 @@ namespace WorkManagementSystemTAB.Controllers
         [HttpGet("{id}")]
         public IActionResult GetRole(Guid id)
         {
-            if (!IsManagerOrAbove())
+            if (!IsLoggedIn())
                 return Unauthorized();
 
             var result = _rolesService.GetById(id);

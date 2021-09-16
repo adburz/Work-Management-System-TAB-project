@@ -47,6 +47,7 @@ namespace WorkManagementSystemTAB.Controllers
             {
                 Subject = new ClaimsIdentity(new[] {
                     new Claim(JwtRegisteredClaimNames.Email, user.Email),
+                    new Claim(Strings.Email,user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                     new Claim(Strings.AccessLevel,_rolesService.GetAccessLvlById(user.RoleId))
                 }),
